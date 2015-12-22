@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   
   devise_for :users
-  root to: "files#index"
-  resources :files
+  root to: "note_files#index"
+  resources :note_files
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
