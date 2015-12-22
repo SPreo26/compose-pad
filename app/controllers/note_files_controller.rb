@@ -1,4 +1,4 @@
-class FilesController < ApplicationController
+class NoteFilesController < ApplicationController
 
   #before_action
   #def authenticate_admin
@@ -6,7 +6,7 @@ class FilesController < ApplicationController
   def index
 
     if current_user
-      @files = File.where(user_id: current_user)
+      @files = NoteFile.where(user_id: current_user)
     else
       flash[:danger]="You need to sign in to view your files!"
       redirect_to "/users/sign_in"
@@ -17,7 +17,7 @@ class FilesController < ApplicationController
   def show
 
     if current_user
-      @file = File.find_by(id: params[:id], user_id: current_user)
+      @file = NoteFile.find_by(id: params[:id], user_id: current_user)
       if @file
         #render?????
       else

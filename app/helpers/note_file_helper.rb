@@ -1,0 +1,2 @@
+module NoteFileHelper
+end
