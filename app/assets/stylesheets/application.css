@@ -18,3 +18,24 @@
  *= require_self
  */
  
+.container{
+  margin-left: 0px;
+  margin-right: 0px;
+  padding-left: 5px;
+  padding-right: 5px;
+  width: auto;
+}
+
+.big-pane
+ {
+  background-color: red;
+  min-height: 200px
+ }
+
+ .navbar-brand {
+  padding: 15px 15px 15px 25px;
+ }
+
+ .container .navbar-collapse {
+  max-height: none;
+ }
