@@ -1,31 +1,45 @@
-<%= form_tag '/', method: 'post' do %>
+<%= form_tag '/note_files/1', id: 'note_file_form', method: 'patch' do %>
 <table class="worktable">
-  
-    <tr>
-      <% 5.times do  %>
-      <td width="1%" class="workcell"><%= "1.1" %>
-      <td width="1%" class="workcell"><%= "1.2" %>
-      <td width="1%" class="workcell"><%= "1.3" %>
-      <td width="1%" class="workcell"><%= "1.4" %>
+  <tr>
+    <td width="2%"></td>
+    <% 1.upto(@max_measure) do |measure_index| %>
+      <% 1.upto(@beats_per_measure) do |beat_index| %>
+        <% 1.upto(@divisions_per_beat) do |div_index| %>
+          <% if div_index == 1 %>
+            <td width="<%= 2* @divisions_per_beat %>%" colspan="<%= @divisions_per_beat %>">
+              <%= "#{measure_index.to_s}.#{beat_index.to_s}" %>
+              <%#label only printed on beat %>
+            </td>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </tr>
+  <% @max_octave.downto(@min_octave) do |octave| %>
+    <% @tones_array.each_with_index do |tone, tone_index| %>
+
+      <% if octave == @min_octave && tone_index>@tones_array.index(@min_tone) %>
+        <% break %>
+      <% end %>   
+
+      <% if octave == @max_octave && tone_index<@tones_array.index(@max_tone)%> 
+        <% next %>
       <% end %>
 
-    </tr>
-    <tr>
-      <% 5.times do %>
-      <td>
-        <%= check_box_tag "file[notes][A3][]", "1.1.1"%>
-      </td>
-      <td>
-        <%= check_box_tag "file[notes][A3][]", "1.1.2"%>
-      </td>
-      <td>
-        <%= check_box_tag "file[notes][A3][]", "1.1.2"%>
-      </td>
-      <td>
-        <%= check_box_tag "file[notes][A3][]", "1.1.2"%>
-      </td>
-      <% end %>
-    </tr>
+      <tr>
+        <td><%= "#{tone}#{octave}" %></td>
+        <% 1.upto(@max_measure) do |measure_index| %>
+          <% 1.upto(@beats_per_measure) do |beat_index| %>
+            <% 1.upto(@divisions_per_beat) do |division_index| %>    
+              <td>
+                <%= check_box_tag "file[notes][#{tone}#{octave}][]", "#{measure_index}.#{beat_index}.#{division_index}"%>
+              </td>
+            <% end %>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+  <% end %>
 
 </table>
 <% end %>

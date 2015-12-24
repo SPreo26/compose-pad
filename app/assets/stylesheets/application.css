@@ -46,10 +46,11 @@
  }
 
  .container .navbar-collapse .tab-content .tab-pane {
-  background-color: #3104B4;
+  background-color: beige;
+  /*#3104B4;*/
 }
  .container .navbar-collapse .tab-content .tab-pane table tr td {
-  color: white;
+  color: black;
 }
 /*.carousel-inner .item .fill .carousel-content{
   word-wrap:break-word;

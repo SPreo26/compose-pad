@@ -65,7 +65,7 @@
                 <%= link_to "Open", "/" %>
               </li>
               <li>
-                <%= link_to "Save", "/" %>
+                 <%= link_to "Save", '#', onclick:"saveFile()" %>
               </li>
               <li>
                 <%= link_to "Save As", "/" %>
@@ -102,11 +102,11 @@
 
     <!--  -->
 
-    <% if url_for == "/workspace" %>
+    <% if @action_is_open_files %>
     <ul id = "myTab" class = "nav nav-tabs">
        <li class = "active">
           <a href = "#home" data-toggle = "tab">
-             Tutorial Point Home
+             File 1
           </a>
        </li>
        
@@ -161,7 +161,12 @@
     </div>
   </nav>
 
-
+<script>
+function saveFile() {
+  var form = document.getElementById("note_file_form");
+    form.submit()
+}
+</script>
 
 <!-- Full Page Image Background Carousel Header -->
 
