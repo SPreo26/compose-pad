@@ -22,11 +22,16 @@ class NoteFilesController < ApplicationController
         #render?????
       else
         flash[:danger]="File id #{params[:id]} not found under this user need to sign in to view your files!"
+        redirect_to "/"
       end
     else      
       flash[:danger]="You need to sign in to view your files!"
       redirect_to "/users/sign_in"
     end
+
+  end
+
+  def open_files
 
   end
 

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class FileReferencesControllerTest < ActionController::TestCase
+class NoteFilesControllerTest < ActionController::TestCase
   # test "the truth" do
   #   assert true
   # end

@@ -17,6 +17,11 @@
  *= require_tree .
  *= require_self
  */
+
+/*body {
+  padding-top: 50px;
+  margin-right: 
+}*/
  
 .container{
   margin-left: 0px;
@@ -39,3 +44,13 @@
  .container .navbar-collapse {
   max-height: none;
  }
+
+ .container .navbar-collapse .tab-content .tab-pane {
+  background-color: #3104B4;
+}
+ .container .navbar-collapse .tab-content .tab-pane table tr td {
+  color: white;
+}
+/*.carousel-inner .item .fill .carousel-content{
+  word-wrap:break-word;
+}*/
