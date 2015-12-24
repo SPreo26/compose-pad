@@ -1,0 +1,31 @@
+<%= form_tag '/', method: 'post' do %>
+<table class="worktable">
+  
+    <tr>
+      <% 5.times do  %>
+      <td width="1%" class="workcell"><%= "1.1" %>
+      <td width="1%" class="workcell"><%= "1.2" %>
+      <td width="1%" class="workcell"><%= "1.3" %>
+      <td width="1%" class="workcell"><%= "1.4" %>
+      <% end %>
+
+    </tr>
+    <tr>
+      <% 5.times do %>
+      <td>
+        <%= check_box_tag "file[notes][A3][]", "1.1.1"%>
+      </td>
+      <td>
+        <%= check_box_tag "file[notes][A3][]", "1.1.2"%>
+      </td>
+      <td>
+        <%= check_box_tag "file[notes][A3][]", "1.1.2"%>
+      </td>
+      <td>
+        <%= check_box_tag "file[notes][A3][]", "1.1.2"%>
+      </td>
+      <% end %>
+    </tr>
+
+</table>
+<% end %>
