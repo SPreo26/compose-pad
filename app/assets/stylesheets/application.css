@@ -37,21 +37,28 @@
   min-height: 200px
  }
 
- .navbar-brand {
-  padding: 15px 15px 15px 25px;
- }
-
  .container .navbar-collapse {
   max-height: none;
  }
 
- .container .navbar-collapse .tab-content .tab-pane {
+.container .navbar-collapse .tab-content .tab-pane {
   background-color: beige;
   /*#3104B4;*/
 }
- .container .navbar-collapse .tab-content .tab-pane table tr td {
+
+.container .navbar-collapse .tab-content .tab-pane table tr td {
   color: black;
 }
+
+.container .navbar-collapse .disabled-link {
+  color: grey;
+}
+
+ .navbar-brand {
+  padding: 15px 15px 15px 25px;
+ }
+
+
 /*.carousel-inner .item .fill .carousel-content{
   word-wrap:break-word;
 }*/
