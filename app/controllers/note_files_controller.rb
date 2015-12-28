@@ -15,9 +15,8 @@ class NoteFilesController < ApplicationController
   def show
 
     if current_user
-      @file = NoteFile.find_by(id: params[:id], user_id: current_user)
+      @file = NoteFile.find_by({id: params[:id], user_id: current_user.id})
       if @file
-        @file.update(file_is_open:true)
         redirect_to "/workspace"
       else
         flash[:danger]="File id #{params[:id]} not found under this user need to sign in to view your files!"
@@ -28,6 +27,26 @@ class NoteFilesController < ApplicationController
       redirect_to "/users/sign_in"
     end
 
+  end
+
+  def new
+  end
+
+  def create
+    user_id=current_user.id if current_user
+    note_file = NoteFile.new({name:params[:name], user_id: user_id, file_open: true})
+    if note_file.valid?
+      note_file.save
+      redirect_to "/workspace"
+    else
+      messages=note_file.errors.messages.values.join("\n ") 
+        flash[:danger]=messages
+      if current_user
+        redirect_to "/note_files/new"
+      else
+        redirect_to "/users/sign_in/"
+      end
+    end
   end
 
   def update

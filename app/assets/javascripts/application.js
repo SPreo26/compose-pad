@@ -17,3 +17,14 @@
 
 
 //= require_tree .
+
+function saveFile() {
+  var form = document.getElementById("note-file-form");
+    form.submit()
+}
+
+function createFile() {
+  var form = document.getElementById("file-create-form")
+    form.submit()
+}
+
