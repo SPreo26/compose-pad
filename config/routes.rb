@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   
   devise_for :users
   root to: 'note_files#index'
-  get '/workspace/', to: 'note_files#open_files'
+  get '/workspace/', to: 'note_files#opened_files'
   resources :note_files
 
   # The priority is based upon order of creation: first created -> highest priority.

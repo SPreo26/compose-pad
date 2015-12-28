@@ -19,7 +19,7 @@
 //= require_tree .
 
 function saveFile() {
-  var form = document.getElementById("note-file-form");
+  var form = document.getElementById("note-file-form0");
     form.submit()
 }
 
