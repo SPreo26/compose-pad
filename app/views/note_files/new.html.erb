@@ -1,0 +1,17 @@
+<div class = "center-on-screen" >
+  <div class="panel panel-primary panel-add-shadow">
+      <div class="panel-heading">
+        <div class="panel-title-custom">
+          Enter a new file name :
+        </div>
+      </div>
+      <div class="panel-body">
+        <%= form_tag "/note_files/", method: :post, id: "file-create-form"%>
+        <%= text_area_tag :name, "New tune", class: "form-control text-area-small" %>
+        <br>
+        <div class="btn btn-primary button-centered" onclick="createFile()">
+          Create
+        </div>
+      </div>
+  </div>
+</div>
