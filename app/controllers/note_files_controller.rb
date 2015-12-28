@@ -53,8 +53,8 @@ class NoteFilesController < ApplicationController
     redirect_to "/workspace"
   end
 
-  def open_files
-    @action_is_open_files = true
+  def opened_files
+    @action_is_opened_files = true
     @max_measure = 2
     @beats_per_measure = 4
     @divisions_per_beat = 4
