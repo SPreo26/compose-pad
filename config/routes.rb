@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   
   devise_for :users
-  root to: 'note_files#index'
+  devise_scope :user do
+    root to: 'devise/sessions#new'
+  end
   get '/workspace/', to: 'note_files#opened_files'
   resources :note_files
 

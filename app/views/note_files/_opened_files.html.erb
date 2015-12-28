@@ -25,14 +25,20 @@
       <% if octave == @max_octave && tone_index<@tones_array.index(@max_tone)%> 
         <% next %>
       <% end %>
-
+      <% @pitch = "#{tone}#{octave}"%>
       <tr>
-        <td><%= "#{tone}#{octave}" %></td>
+        <td><%= @pitch %></td>
         <% 1.upto(@max_measure) do |measure_index| %>
           <% 1.upto(@beats_per_measure) do |beat_index| %>
             <% 1.upto(@divisions_per_beat) do |division_index| %>    
               <td>
-                <%= check_box_tag "file[notes][#{tone}#{octave}][]", "#{measure_index}.#{beat_index}.#{division_index}"%>
+                <% @start_index = "#{measure_index}.#{beat_index}.#{division_index}" %>
+                <% if LoadedNote.find_by(file_id:@opened_file.id, pitch: @pitch, start_index: @start_index) %> 
+                  <% @is_checked = true %>
+                <% else %>     
+                  <% @is_checked = false %>
+                <% end %>
+                <%= check_box_tag "file[notes][#{@pitch}][]", @start_index, @is_checked %>
               </td>
             <% end %>
           <% end %>

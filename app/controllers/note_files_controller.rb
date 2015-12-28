@@ -1,6 +1,6 @@
 class NoteFilesController < ApplicationController
 
-  #before_action
+  #before_action authenticate_admin
   #def authenticate_admin
 
   def index
@@ -19,8 +19,8 @@ class NoteFilesController < ApplicationController
       if @file
         redirect_to "/workspace"
       else
-        flash[:danger]="File id #{params[:id]} not found under this user need to sign in to view your files!"
-        redirect_to "/"
+        flash[:danger]="File id #{params[:id]} not found under this user!"
+        redirect_to "/note_files/"
       end
     else      
       flash[:danger]="You need to sign in to view your files!"

@@ -18,18 +18,18 @@
  *= require_self
  */
 
-/*body {
+body {
   padding-top: 50px;
   margin-right: 
-}*/
+}
 
-.alert-dismissible{
- position: fixed;
- top: 40px;
+/*.alert-dismissible{
+ position: absolute;
+ top: 0px;
  left: 0px;
  right: 0px;
- z-index: 9001;/*Over nine thousand!!!!*/
-}
+ z-index: 9001;
+}*/
 
 .container{
   margin-left: 0px;
