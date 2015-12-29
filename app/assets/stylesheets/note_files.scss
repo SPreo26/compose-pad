@@ -17,10 +17,19 @@
   margin-right: 2px;*/
   word-break: break-all; 
   margin: 4px;
-  background-color: #DDDDDD;
+  padding-left: 6px;
+  padding-right: 6px;
+  
   font-size:24px;
 }
 
+.p-even{
+  background-color: #A7C0EC;
+}
+
+.p-odd{
+  background-color: #D3E3F7;
+}
 .small-text{
   font-size: 15px; 
   vertical-align:20%;
