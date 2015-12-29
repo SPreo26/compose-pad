@@ -6,12 +6,13 @@
         </div>
       </div>
       <div class="panel-body">
-        <%= form_tag "/note_files/", method: :post, id: "file-create-form"%>
-        <%= text_area_tag :name, "New tune", class: "form-control text-area-small" %>
-        <br>
-        <div class="btn btn-primary button-centered" onclick="createFile()">
+        <%= form_tag "/note_files/", method: :post, id: "file-create-form" do %>
+          <%= text_area_tag :name, "New tune", class: "form-control text-area-small" %>
+          <br>
+          <div class="btn btn-primary button-centered" onclick="createFile()">
           Create
-        </div>
+          </div>
+        <% end %>
       </div>
   </div>
 </div>
