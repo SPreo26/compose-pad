@@ -1,0 +1,22 @@
+<div class = "container-to-center" >
+  <div class = "center-on-screen">
+    <div class="panel panel-primary my-panel">
+      <div class="panel-heading">
+        <div class="panel-title-custom">
+          Open, delete, or rename your files
+        </div>
+      </div>
+      <div class="panel-body my-panel-body">
+        <%= form_tag "/note_files/open_rename_or_delete", method: 'get', id: "open_rename_or_delete_files_form" do %>
+        <%= render "list_of_files", files: @files %>
+        <br>
+          <div class="btn btn-primary button-centered" onclick="openFiles()">
+            Create
+          </div>
+        <% end %>
+      </div>
+    </div>  
+  </div>
+</div>
+
+

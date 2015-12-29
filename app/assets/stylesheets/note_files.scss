@@ -1,5 +1,39 @@
-// Place all the styles related to the file_references controller here.
+/*// Place all the styles related to the file_references controller here.
 // They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+// You can use Sass (SCSS) here: http://sass-lang.com/*/
 
+.newspaper {
+    -webkit-column-count: 3; /* Chrome, Safari, Opera */
+    -moz-column-count: 3; /* Firefox */
+    column-count: 3;
+        -webkit-column-gap: 10px;
+       -moz-column-gap: 10px;
+            column-gap: 10px;
+}
 
+.newspaper p {
+/*  padding-bottom: 2px;
+  margin-left: 2px;
+  margin-right: 2px;*/
+  word-break: break-all; 
+  margin: 4px;
+  background-color: #DDDDDD;
+  font-size:24px;
+}
+
+.small-text{
+  font-size: 15px; 
+  vertical-align:20%;
+}
+
+/*hr {
+  border-top: 1px solid #fff;
+}*/
+
+/*.p-even{
+  background-color: #DDDDDD;
+}
+
+.p-odd{
+  background-color: #CCCCCC;
+}*/

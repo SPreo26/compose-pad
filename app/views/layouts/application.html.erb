@@ -64,12 +64,12 @@
                 <%= link_to "New", '/note_files/new' %>
               </li>
               <li> 
-                <%= link_to "Open...", '#' %> 
+                <%= link_to "My Files...", '/my_files' %> 
               </li>
-              <% if @action_is_open_files %>
-                <%= render "/note_files/workspace_file_menu"%>
-              <% elsif NoteFile.find_by(file_open: true) %>
-                <%= render "/note_files/opened_files_file_menu"%>
+              <% if @action_is_workspace %>
+                <%= render "/note_files/file_menu_when_workspace_shown"%>
+              <% elsif NoteFile.find_by({user_id:current_user.id, file_open: true}) %>
+                <%= render "/note_files/file_menu_when_files_open_not_shown"%>
               <% else %>  
                 <li> 
                   <a class = "disabled-link"> Save </a> 
@@ -109,8 +109,8 @@
             <li> <%= link_to "Sign in", "/users/sign_in", class: "navbar-item-match-tabs" %> </li>
           <% end %>
         </ul>
-        <% if @action_is_opened_files %>
-          <% @opened_files = NoteFile.where(file_open:true) %>
+        <% if @action_is_workspace %>
+          <% @opened_files = NoteFile.where({user_id: current_user.id, file_open:true}) %>
           <ul id = "myTab" class = "nav nav-tabs">
           <% @opened_files.each_with_index do |opened_file, index| %>            
             <li <%= "class = active" if index==0%> >
@@ -129,7 +129,7 @@
               <% end %>
               <% @opened_file = opened_file %>
               <%# need to convert block var to inst var to pass to partial %>
-              <%= render "/note_files/opened_files", {opened_file: @opened_file, index: index}%>
+              <%= render "/note_files/workspace_file", {opened_file: @opened_file, index: index}%>
               </div>
             <% end %>
           </div>

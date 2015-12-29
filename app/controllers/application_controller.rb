@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
     if NoteFile.find_by(file_open: true)
       "/workspace"
     else
-      "/note_files/"
+      "/my_files/"
     end
   end
 
