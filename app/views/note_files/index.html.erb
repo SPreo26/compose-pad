@@ -1,26 +1,38 @@
-<div class = "container-to-center" >
-  <div class = "center-on-screen">
-    <div class="col-md-3"></div>
-    <div class="col-md-6">
-    <div class="panel panel-primary my-panel ">
-      <div class="panel-heading">
-        <div class="panel-title-custom">
-          Open, delete, or rename your files
+<div class="wrapper">
+<div class="row">
+  <div class="col-md-3 vcenter pad-for-panel">
+    <div id="insideLeftGrid"></div>
+</div><!--
+-->
+<div class="col-md-6 middle-panel vcenter">
+  <div class = "container-to-center" id="insideMidGrid" >
+      <div class="panel panel-primary my-panel ">
+        <div class="panel-heading">
+          <div class="panel-title-custom">
+            Open, delete, or rename your files
+          </div>
+        </div>
+        <div class="panel-body my-panel-body">
+          <%= form_tag "/note_files/open_rename_or_delete", method: 'get', id: "open_rename_or_delete_files_form" do %>
+          <%= render "list_of_files", files: @files %>
+          <br>
+          <div class="btn btn-primary button-centered" onclick="openFiles()">
+            Open
+          </div>
+          <% end %>
         </div>
       </div>
-      <div class="panel-body my-panel-body">
-        <%= form_tag "/note_files/open_rename_or_delete", method: 'get', id: "open_rename_or_delete_files_form" do %>
-        <%= render "list_of_files", files: @files %>
-        <br>
-          <div class="btn btn-primary button-centered" onclick="openFiles()">
-            Create
-          </div>
-        <% end %>
-      </div>
-    </div>
-    </div>
-    <div class="col-md-3"></div>
   </div>
+</div><!--
+-->
+<div class="col-md-2 vcenter pad-for-panel">
+  <div id="insideRightGrid"></div>
+</div>
+</div>
 </div>
 
-
+<script>
+  document.getElementById("insideLeftGrid").style.height = (screen.height-90) + "px";
+  document.getElementById("insideMidGrid").style.height = Math.floor(parseInt(screen.height)/1.65)-90 + "px";
+  document.getElementById("insideRightGrid").style.height = screen.height-90 + "px"
+</script>

@@ -30,11 +30,17 @@
 .p-odd{
   background-color: #D3E3F7;
 }
+
 .small-text{
   font-size: 15px; 
   vertical-align:20%;
 }
 
+.vcenter {
+    display: inline-block !important;
+    vertical-align: middle !important;
+    float: none !important;
+}
 /*hr {
   border-top: 1px solid #fff;
 }*/
