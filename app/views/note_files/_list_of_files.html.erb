@@ -2,14 +2,14 @@
   <!-- <ul class = "list-group"> -->
   <% @files.each_with_index do |file, index| %>
     <!-- <li class = "list-group-item p-border"> -->
-    <p
+    <div
       <% if index.even? %>
-       class="p-even"
+       class="file-even"
       <% else %>
-        class="p-odd"
+        class="file-odd"
       <% end %>
     >
-    <span class ="small-text"> <%= file.name %> </span></p>
+    <span class ="small-text"> <%= file.name %> </span></div>
     <!-- </li> -->
     <!-- <hr style="width: 77%; height: 0em; background: #fff; margin: 10px auto;"> -->
   <% end %>
