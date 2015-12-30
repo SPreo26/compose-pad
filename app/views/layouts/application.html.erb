@@ -52,7 +52,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand navbar-brand-match-tabs" href="#">Compose Pad</a>
+          <a class="navbar-brand navbar-brand-match-tabs" href="/workspace">Compose Pad</a>
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -110,7 +110,6 @@
           <% end %>
         </ul>
         <% if @action_is_workspace %>
-          <% @opened_files = NoteFile.where({user_id: current_user.id, file_open:true}) %>
           <ul id = "myTab" class = "nav nav-tabs">
           <% @opened_files.each_with_index do |opened_file, index| %>            
             <li <%= "class = active" if index==0%> >

@@ -42,14 +42,14 @@ class NoteFilesController < ApplicationController
 
   def workspace
     @action_is_workspace = true
-    @max_measure = 2
-    @beats_per_measure = 4
-    @divisions_per_beat = 4
-    @max_octave = 4
-    @min_octave = 3
-    @max_tone = "B"
-    @min_tone = "C"
-    @tones_array = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"].reverse#reverse as table in view is built from top down
+    @opened_files = NoteFile.where({user_id: current_user.id, file_open:true})
+    if @opened_files.any?
+      get_workspace_constants()
+      p "AAAAAAAAAAA"
+    else
+      p "OOOOOOOOOOO"
+      redirect_to "/my_files"
+    end
   end
 
 
@@ -93,6 +93,17 @@ class NoteFilesController < ApplicationController
 
   def delete_files
 
+  end
+
+  def get_workspace_constants
+      @max_measure = 2
+      @beats_per_measure = 4
+      @divisions_per_beat = 4
+      @max_octave = 4
+      @min_octave = 3
+      @max_tone = "B"
+      @min_tone = "C"
+      @tones_array = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"].reverse#reverse as table in view is built from top down
   end
 
 end
