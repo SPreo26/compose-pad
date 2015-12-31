@@ -36,8 +36,16 @@ class NoteFilesController < ApplicationController
     end
   end
 
-  def open_rename_or_delete_files
-    #depending on whether sub-action param is open/rename/delete call corresponding private method with right params
+  def open_files
+
+  end
+
+  def rename_files
+
+  end
+
+  def delete_files
+
   end
 
   def workspace
@@ -45,15 +53,25 @@ class NoteFilesController < ApplicationController
     @opened_files = NoteFile.where({user_id: current_user.id, file_open:true})
     if @opened_files.any?
       get_workspace_constants()
-      p "AAAAAAAAAAA"
     else
-      p "OOOOOOOOOOO"
+      @action_is_workspace = false
       redirect_to "/my_files"
     end
   end
 
-
   def save
+    notes_to_save=params[:file][:notes]
+    note_file=NoteFile.find_by({id: params[:id], user_id: current_user.id})
+
+    notes_to_save.each do |pitch, start_indeces|
+      start_indeces.each do |start_index, note_presence|
+        unless LoadedNote.find_by({file_id:note_file.id, pitch: pitch, start_index: start_index})
+          #if pitch_okay? && start_index_okay? #add this later
+          LoadedNote.create({file_id: note_file.id, pitch: pitch, velocity: 100, start_index: start_index})
+        end
+      end
+    end
+    flash[:success]="File saved!"
     redirect_to "/workspace"
   end
 
@@ -66,7 +84,11 @@ class NoteFilesController < ApplicationController
   end
   
   def close_file
-
+    note_file=NoteFile.find_by(id: params[:id], user_id: current_user.id)
+    if note_file
+      note_file.update(file_open: false)
+    end
+    redirect_to '/workspace'
   end
 
   def close_all
@@ -81,19 +103,8 @@ class NoteFilesController < ApplicationController
     end
   end
 
+
   private
-
-  def open_files
-
-  end
-
-  def rename_files
-
-  end
-
-  def delete_files
-
-  end
 
   def get_workspace_constants
       @max_measure = 2
@@ -104,6 +115,29 @@ class NoteFilesController < ApplicationController
       @max_tone = "B"
       @min_tone = "C"
       @tones_array = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"].reverse#reverse as table in view is built from top down
+  end
+
+  def pitch_okay?(pitch)
+    get_workspace_constants()
+    if pitch.length<2 || pitch.length>3
+      return false
+    end
+    octave = pitch[-1]
+    tone = pitch[0..-2]
+    unless (@min_octave..@max_octave).include?(octave) && @tones_array.include?(tone)
+      return false
+    end
+    if octave == @max_octave && @tones_array.index(tone)<tones_array.index(@max_tone)#@tones_array is in reverse: ["B",..."C"] so conditional is: if tone<max, pitch is not okay
+      return false
+    end
+    if octave == @min_octave && @tones_array.index(tone)>tones_array.index(@min_tone)
+      return false
+    end
+    true 
+  end
+
+  def start_index_okay?(start_index)
+    get_workspace_constants()
   end
 
 end
