@@ -19,14 +19,11 @@ Rails.application.routes.draw do
   get '/note_files/save/', to: 'note_files#save_all'
 
 
-
+  get '/note_files/:id/close_file', to: 'note_files#close_file'
   get '/note_files/close_all', to: 'note_files#close_all'
   
   get '/note_files/delete', to: 'note_files#delete_index'
   
-  
-
-
   resources :note_files
 
   # The priority is based upon order of creation: first created -> highest priority.

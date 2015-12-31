@@ -1,4 +1,4 @@
-<%= form_tag '/note_files/#{opended_file.id}', id: "note-file-form#{index}", method: 'patch' do %>
+<%= form_tag "/note_files/#{@opened_file.id}", id: "note-file-form#{index}", method: :patch do %>
 <table class="worktable">
   <tr>
     <td width="2%"></td>
@@ -20,10 +20,12 @@
 
       <% if octave == @min_octave && tone_index>@tones_array.index(@min_tone) %>
         <% break %>
-      <% end %>   
-
-      <% if octave == @max_octave && tone_index<@tones_array.index(@max_tone)%> 
+        <%# @tones_array is in reverse ["B".."C"] so break if tone_index > min; 
+        eg: stop making pitch rows the moment octave == @min_octave, tone is F, and @min_tone is F# %>
+      <% elsif octave == @max_octave && tone_index<@tones_array.index(@max_tone)%> 
         <% next %>
+        <%# similar logic to above break statement, but this time: continue down to next tone, until @max_tone is reached;
+        eg: if octave==@max_octave, tone is G is @max_tone is E, the next statement will keep skipping until E is reached%>
       <% end %>
       <% @pitch = "#{tone}#{octave}"%>
       <tr>
@@ -38,7 +40,7 @@
                 <% else %>     
                   <% @is_checked = false %>
                 <% end %>
-                <%= check_box_tag "file[notes][#{@pitch}][]", @start_index, @is_checked %>
+                <%= check_box_tag "file[notes][#{@pitch}][#{@start_index}][]", "true", @is_checked %>
               </td>
             <% end %>
           <% end %>
