@@ -1,20 +1,25 @@
 <div class = "table-for-centering">
 <div class = "cell-for-centering" >
-  <div class="panel panel-primary my-panel">
+  <div class="panel panel-primary my-panel create-panel">
       <div class="panel-heading">
-        <div class="panel-title-custom">
+        <div class="my-panel-title">
           Enter a file name :
         </div>
       </div>
-      <div class="panel-body">
+      <div class="panel-body my-panel-body create-panel-body">
         <%= form_tag "/note_files/", method: :post, id: "file-create-form" do %>
-          <%= text_area_tag :name, "New tune", class: "form-control text-area-small" %>
+          <%= text_area_tag :name, "New tune", class: "form-control text-area-small", onclick: "eraseText()" %>
           <br>
-          <div class="btn btn-primary button-centered" onclick="createFile()">
-          Create
-          </div>
         <% end %>
       </div>
+      <div class="panel-footer my-panel-foot">
+        <div class="btn btn-primary button-left" align="center" onclick="window.location='/'">
+          Cancel
+        </div>
+        <div class="btn btn-primary button-right" align="right" onclick="createFile()">
+          Create!
+        </div>
+      </div>          
   </div>
 </div>
 </div>

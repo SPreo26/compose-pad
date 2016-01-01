@@ -10,18 +10,19 @@
         <div class="panel-body my-panel-body">
           <%= form_tag "/note_files/open_rename_or_delete", method: 'get', id: "open_rename_or_delete_files_form" do %>
           <%= render "list_of_files", files: @files %>
-          <br>
+          <% end %>
+        </div>
+        <div class="panel-footer my-panel-foot">
           <div class="btn btn-primary button-centered" onclick="openFiles()">
             Open
           </div>
-          <% end %>
         </div>
       </div>
   </div>
 </div>
 
 
-// <script>
+<script>
 //   document.getElementById("insideLeftGrid").style.height = (screen.height-90) + "px";
 //   document.getElementById("insideMidGrid").style.height = Math.floor(parseInt(screen.height)/1.65)-90 + "px";
 //   document.getElementById("insideRightGrid").style.height = screen.height-90 + "px"
