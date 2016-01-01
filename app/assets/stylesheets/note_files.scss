@@ -3,23 +3,18 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/*/
 
 .newspaper {
-    -webkit-column-count: 3; /* Chrome, Safari, Opera */
-    -moz-column-count: 3; /* Firefox */
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
     column-count: 3;
-
 }
 
 .newspaper div {
-/*  padding-bottom: 2px;
-  margin-left: 2px;
-  margin-right: 2px;*/
   width: 100%;
   word-break: break-all; 
   margin-left: 4px;
   margin-right: 4px;
   padding-left: 6px;
   padding-right: 6px;
-  
   font-size:24px;
 }
 
@@ -36,11 +31,6 @@
   vertical-align:20%;
 }
 
-.vcenter {
-    display: inline-block !important;
-    vertical-align: middle !important;
-    float: none !important;
-}
 /*hr {
   border-top: 1px solid #fff;
 }*/

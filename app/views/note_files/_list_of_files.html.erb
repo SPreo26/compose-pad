@@ -1,7 +1,5 @@
 <div class = "newspaper">
-  <!-- <ul class = "list-group"> -->
   <% @files.each_with_index do |file, index| %>
-    <!-- <li class = "list-group-item p-border"> -->
     <div
       <% if index.even? %>
        class="file-even"
@@ -9,9 +7,7 @@
         class="file-odd"
       <% end %>
     >
-    <span class ="small-text"> <%= file.name %> </span></div>
-    <!-- </li> -->
-    <!-- <hr style="width: 77%; height: 0em; background: #fff; margin: 10px auto;"> -->
+    <span class ="small-text"> <%= file.name %> </span>
+    </div>
   <% end %>
-<!-- </ul> -->
 </div>
