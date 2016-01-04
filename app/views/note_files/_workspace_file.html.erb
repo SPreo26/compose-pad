@@ -40,7 +40,7 @@
                 <% else %>     
                   <% @is_checked = false %>
                 <% end %>
-                <%= check_box_tag "file[notes][#{@pitch}][#{@start_index}][]", "true", @is_checked %>
+                <%= check_box_tag "file[notes][#{@pitch}][]", "#{@start_index}", @is_checked %>
               </td>
             <% end %>
           <% end %>
@@ -48,6 +48,8 @@
       </tr>
     <% end %>
   <% end %>
+
+
 
 </table>
 <% end %>

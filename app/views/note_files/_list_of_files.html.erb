@@ -1,13 +1,22 @@
-<div class = "newspaper">
+<div class = "newspaper" id ="filesNewspaper">
   <% @files.each_with_index do |file, index| %>
-    <div
+    <div id= <%= "file#{index}" %>
       <% if index.even? %>
-       class="file-even"
-      <% else %>
-        class="file-odd"
+        class="file-even"
+      <% elsif index.odd? %>
+        class="file-odd" 
       <% end %>
     >
+    <span class="filename-checkbox">
+    <%= check_box_tag "file[]","file.id", false %>
+    </span>
     <span class ="small-text"> <%= file.name %> </span>
     </div>
+  <% end %>
+  <% @files.each_with_index do |file, index| %>
+    <script>
+        addTopOrBottomClassToFileInNewspaper('<%= "file#{index}" %>', 'filesNewspaper', <%= index + 1 %>, <%= @files.length %>);
+    </script>
+
   <% end %>
 </div>

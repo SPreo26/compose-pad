@@ -64,7 +64,7 @@ class NoteFilesController < ApplicationController
     note_file=NoteFile.find_by({id: params[:id], user_id: current_user.id})
 
     notes_to_save.each do |pitch, start_indeces|
-      start_indeces.each do |start_index, note_presence|
+      start_indeces.each do |start_index|
         unless LoadedNote.find_by({file_id:note_file.id, pitch: pitch, start_index: start_index})
           #if pitch_okay? && start_index_okay? #add this later
           LoadedNote.create({file_id: note_file.id, pitch: pitch, velocity: 100, start_index: start_index})
