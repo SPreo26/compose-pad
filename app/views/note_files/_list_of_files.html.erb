@@ -7,10 +7,10 @@
         class="file-odd" 
       <% end %>
     >
-    <span class="filename-checkbox">
-    <%= check_box_tag "file[]","file.id", false %>
-    </span>
-    <span class ="small-text"> <%= file.name %> </span>
+      <span class="filename-checkbox">
+      <%= check_box_tag "file[]","file.id", false%>
+      </span>
+      <%= text_area_tag "file[]", file.name, maxlength: 30, class: "small-text"%>
     </div>
   <% end %>
   <% @files.each_with_index do |file, index| %>
