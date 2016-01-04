@@ -1,6 +1,6 @@
 <div class = "newspaper" id ="filesNewspaper">
   <% @files.each_with_index do |file, index| %>
-    <div id= <%= "file#{index}" %>
+    <div id= <%= "file_line#{index}" %>
       <% if index.even? %>
         class="file-even"
       <% elsif index.odd? %>
@@ -10,12 +10,14 @@
       <span class="filename-checkbox">
       <%= check_box_tag "file[]","file.id", false%>
       </span>
-      <%= text_area_tag "file[]", file.name, maxlength: 30, class: "small-text"%>
+      <%= text_field_tag "file[]", file.name, maxlength: 30, class: "small-text", id: "file_text#{index}",   onclick: "unabbrevIfAbbrev(this,#{index})", onblur: "abbrevIfTextOverflow(this.id,#{index})"%>
     </div>
   <% end %>
   <% @files.each_with_index do |file, index| %>
     <script>
-        addTopOrBottomClassToFileInNewspaper('<%= "file#{index}" %>', 'filesNewspaper', <%= index + 1 %>, <%= @files.length %>);
+        addTopOrBottomClassToFileInNewspaper('<%= "file_line#{index}" %>', 'filesNewspaper', <%= index + 1 %>, <%= @files.length %>);
+        originalFileNames.values[<%= index %>]='<%=  file.name %>';
+        abbrevIfTextOverflow('<%= "file_text#{index}" %>', <%= index %>);
     </script>
 
   <% end %>
