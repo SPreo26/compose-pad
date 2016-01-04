@@ -61,3 +61,17 @@ function getActiveForm() {
 function eraseText() {
   document.getElementById("file-create-form").getElementsByTagName("textarea")[0].innerHTML="";
 }
+
+function addTopOrBottomClassToFileInNewspaper(id,parentId,fileNum,numFiles){
+  var file_line = document.getElementById(id)
+  if ($("\#"+id).position().top==0){
+    file_line.className += " file-top";
+  }
+  var elementHeight = $("\#"+id).height()
+  var elementBottom = $("\#"+id).position().top + elementHeight
+  var parentBottom =  $("\#"+parentId).height() 
+  if (parentBottom - elementBottom < elementHeight || fileNum == numFiles) {
+    file_line.className += " file-bottom";
+  }
+
+}

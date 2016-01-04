@@ -6,6 +6,8 @@
     -webkit-column-count: 3;
     -moz-column-count: 3;
     column-count: 3;
+    position: relative;
+    padding-right: 5px;
 }
 
 .newspaper div {
@@ -26,11 +28,42 @@
   background-color: #D3E3F7;
 }
 
-.small-text{
-  font-size: 15px; 
-  vertical-align:20%;
+.filename-checkbox {
+  vertical-align: middle;
+  margin-right: 10px;
 }
 
+.filename-checkbox input{
+  float: left;
+}
+
+.small-text{
+  padding: 2px 4px;
+  font-size: 13px; 
+  vertical-align:20%;
+  border-radius: 3px;
+  box-shadow: 2px 2px 6px #555555;
+}
+
+.file-even .small-text{
+  background: #92B1E4;
+}
+
+.file-odd .small-text{
+  background: #BAD4F9;
+}
+
+.file-top{
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px 3px 0px 0px;
+  border-radius: 3px 3px 0px 0px; 
+}
+
+.file-bottom{
+  -moz-border-radius: 0px 3px;
+  -webkit-border-radius: 0px 0px 3px 3px ;
+  border-radius: 0px 0px 3px 3px;
+}
 /*hr {
   border-top: 1px solid #fff;
 }*/
