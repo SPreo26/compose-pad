@@ -75,10 +75,34 @@ function addTopOrBottomClassToFileInNewspaper(id,parentId,fileNum,numFiles){
   }
 }
 
-function convertTextToField(id){
-  
+function abbrevIfTextOverflow(id, index){
+  if ($('#'+id)[0].scrollWidth >  $('#'+id).innerWidth()) {
+    var file_text_elem = document.getElementById(id);
+    text=file_text_elem.value;
+    abbrevText(file_text_elem, text);
+    originalFileNames.values[index] = "\n" + originalFileNames.values[index]; //mark that abbreviation was made with an illegal newline character in array of original names 
+  }
 }
 
-function convertFieldToText(id){
+function abbrevText(text_elem, text){
+  if (text.length<8) {
+      text_elem.value = text.substring(0,text.length) + "..";
+    }else{
+      text_elem.value = text.substring(0,4) + ".." + text.substring(text.length-4,text.length);
+    }
+  return text_elem.value
+}
+
+var originalFileNames = {
+  values: []
+}
+
+function unabbrevIfAbbrev(elem,index) {
+  if (originalFileNames.values[index][0] == "\n" && abbrevText(elem,elem.value) == elem.value){
+    newlineRemovedString = originalFileNames.values[index].slice(1);
+    elem.value = newlineRemovedString;
+    originalFileNames.values[index] = newlineRemovedString;
+  }
 
 }
+
