@@ -73,5 +73,12 @@ function addTopOrBottomClassToFileInNewspaper(id,parentId,fileNum,numFiles){
   if (parentBottom - elementBottom < elementHeight || fileNum == numFiles) {
     file_line.className += " file-bottom";
   }
+}
+
+function convertTextToField(id){
+  
+}
+
+function convertFieldToText(id){
 
 }

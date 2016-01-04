@@ -8,7 +8,7 @@
       </div>
       <div class="panel-body my-panel-body create-panel-body">
         <%= form_tag "/note_files/", method: :post, id: "file-create-form" do %>
-          <%= text_area_tag :name, "New tune", class: "form-control text-area-small", onclick: "eraseText()" %>
+          <%= text_area_tag :name, "New tune", maxlength: 30, class: "form-control text-area-small", onclick: "eraseText()" %>
           <br>
         <% end %>
       </div>
