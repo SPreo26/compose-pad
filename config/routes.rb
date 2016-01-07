@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   devise_scope :user do
     root to: 'devise/sessions#new'
   end
+
   get '/my_files/', to: 'note_files#index'#leads to an index page from which you can open,rename,delete
   get '/note_files/open_rename_or_delete_files'
   get '/note_files/open_files', to: 'note_files#open_files'
@@ -27,6 +28,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       get '/note_files', to: 'note_files#index'
+      patch '/note_files/:id', to: 'note_files#update'
+      patch '/note_files/:id/rename/', to: 'note_files#rename'
+      patch '/note_files/:id/save/', to: 'note_files#rename'
     end
   end
 

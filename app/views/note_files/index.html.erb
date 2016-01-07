@@ -1,31 +1,27 @@
-<div ng-app="app">
-  <div ng-controller="noteFilesCtrl" ng-init="setup()">
-    <div class="table-for-centering">
-      <div class ="cell-for-centering" id="insideMidGrid" >
-        <div class="panel panel-primary files-panel ">
-          <div class="panel-heading">
-            <div class="files-panel-title">
-            My Files
-            </div>
-          </div>
-          <!-- <div class="files-panel-body-padding"></div> -->
-          <div class="panel-body files-panel-body">
-            <%= form_tag "/note_files/open_rename_or_delete", method: 'get', id: "open_rename_or_delete_files_form" do %>
-            <%= render "list_of_files", files: @files %>
-            <% end %>
-          </div>
-          <!-- <div class="files-panel-body-padding"></div> -->
-          <div class="panel-footer files-panel-foot">
-            <div class="btn btn-primary file-list-button button-left" onclick="document.location='/note_files/cancel_open">
-              Cancel
-            </div>
-            <div class="btn btn-primary file-list-button button-center" onclick="openFiles()">
-              Open
-            </div>
-            <div class="btn btn-primary file-list-button button-right" onclick="openFiles()">
-              Delete
-            </div>
-          </div>
+<div class="table-for-centering" ng-app="app">
+  <div class ="cell-for-centering" id="insideMidGrid" div ng-controller="noteFilesCtrl" ng-init="setup()">
+    <div class="panel panel-primary files-panel ">
+      <div class="panel-heading">
+        <div class="files-panel-title">
+        My Files
+        </div>
+      </div>
+      <!-- <div class="files-panel-body-padding"></div> -->
+      <div class="panel-body files-panel-body">
+        <%= form_tag "/note_files/open_rename_or_delete", method: 'get', id: "open_rename_or_delete_files_form" do %>
+        <%= render "list_of_files"%>
+        <% end %>
+      </div>
+      <!-- <div class="files-panel-body-padding"></div> -->
+      <div class="panel-footer files-panel-foot">
+        <div class="btn btn-primary file-list-button button-left" onclick="document.location='/note_files/cancel_open">
+          Cancel
+        </div>
+        <div class="btn btn-primary file-list-button button-center" onclick="openFiles()">
+          Open
+        </div>
+        <div class="btn btn-primary file-list-button button-right" onclick="openFiles()">
+          Delete
         </div>
       </div>
     </div>
