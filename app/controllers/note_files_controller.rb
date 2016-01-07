@@ -31,7 +31,7 @@ class NoteFilesController < ApplicationController
     if current_user
       @files = NoteFile.where(user_id: current_user).order(name: :asc)
     else
-      flash[:danger]=@sign_in_message
+      flash[:danger] = @sign_in_message
       redirect_to "/users/sign_in"
     end
   end

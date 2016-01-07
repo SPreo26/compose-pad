@@ -1,0 +1,1 @@
+json.partial! @note_file, partial: 'note_file', as: :note_file
