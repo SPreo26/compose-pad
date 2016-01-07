@@ -1,24 +1,23 @@
-<div class = "newspaper" id ="filesNewspaper">
-  <% @files.each_with_index do |file, index| %>
-    <div id= <%= "file_line#{index}" %>
-      <% if index.even? %>
-        class="file-even"
-      <% elsif index.odd? %>
-        class="file-odd" 
-      <% end %>
-    >
+<div class = "newspaper" id ="filesNewspaper" >
+    <div ng-repeat="noteFile in noteFiles" ng-attr-id="{{file_line+$index}}" ng-class="$index%2==0? 'file-even' : 'file-odd'" >  
       <span class="filename-checkbox">
-      <%= check_box_tag "file[]","file.id", false%>
+      <input type="checkbox" 
+      name="files[]" 
+      ng-true-value="{{noteFile.id}}" 
+      ng-model="noteFile.selected">
       </span>
-      <%= text_field_tag "file[]", file.name, maxlength: 30, class: "small-text", id: "file_text#{index}", onclick: "unabbrevIfAbbrev(this,#{index})", onblur: "abbrevIfTextOverflow(this.id,#{index})", onchange: "updateOriginalFileName(this,#{index})"%>
+      <input name="file[]" 
+      ng-model="noteFile.name" 
+      ng-maxlength="30" 
+      class="small-text" 
+      ng-attr-id="{{'file_text'+$index}}" 
+      ng-click= "unabbrevIfAbbrev(this,$index)" 
+      ng-blur= "abbrevIfTextOverflow(this.id,$index)"
+      ng-change= "$scope.renameFile(); updateOriginalFileName(this,$index)"%>
     </div>
-  <% end %>
-  <% @files.each_with_index do |file, index| %>
-    <script>
-        addTopOrBottomClassToFileInNewspaper('<%= "file_line#{index}" %>', 'filesNewspaper', <%= index + 1 %>, <%= @files.length %>);
-        originalFileNames.values[<%= index %>]='<%=  file.name %>';
-        abbrevIfTextOverflow('<%= "file_text#{index}" %>', <%= index %>);
+    <script ng-repeat="($index, noteFile) in noteFiles">
+        addTopOrBottomClassToFileInNewspaper('file_line'+ $index, 'filesNewspaper', $index + 1, noteFiles.length);
+        originalFileNames.values[$index]=noteFile.name;
+        abbrevIfTextOverflow('file_text'+ $index, $index);
     </script>
-
-  <% end %>
 </div>
