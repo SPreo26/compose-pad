@@ -103,10 +103,11 @@ body {
   height: 15em !important;
 }*/
 
-.my-panel {
-  max-height: 500px;
+.files-panel {
+  max-height: 520px;
   max-width: 600px;
-  box-shadow: 2px 2px 6px #555555;
+  box-shadow: 3px 3px 10px #333, 0px 2px 10px #444;
+  border: none;
   display: inline-block;
 }
 
@@ -114,12 +115,58 @@ body {
   min-width: 240px;
 }
 
-.my-panel-body{ 
+.files-panel-title{
+  font-family: 'Open Sans', sans-serif;
+  text-shadow: -.275px 0 .01px #CCC, 0 .275px .01px #CCC, .275px 0 .01px #CCC, 0 -.275px .01px #CCC  !important;
+  font-size: 17px;
+  text-align: center;
+  text-shadow: 2px 2px 6px #444;
+}
+
+.files-panel-body{ 
   max-height: 400px;
   overflow-y: scroll !important;
+  padding-top: 19px;
+  padding-bottom: 19px;
+  padding-left: 19px;
+  padding-right: 22px;
 }
+
+.files-panel-body-padding{
+  height: 10px;
+}
+
 .create-panel-body{
   min-height: 80px;
+}
+
+.files-panel-foot{
+  overflow:auto;
+  text-align:center;
+}
+
+.file-list-button {
+  width: 75px;
+  font-family: 'Open Sans', sans-serif;
+  box-shadow: 2px 2px 4px #555555;
+  font-size: 15px;
+  text-shadow: -.275px 0 .005px #CCC, 0 .275px .005px #CCC, .275px 0 .005px #CCC, 0 -.275px .005px #CCC  !important;
+  text-shadow: 1.5px 1.5px 4.5px #444;
+}
+
+.button-left {
+  float:left;
+  margin-left: 20px;
+
+}
+
+.button-right {  
+  float:right;
+  margin-right: 20px;
+}
+
+.button-center{
+  display: inline-block;
 }
 
 .text-area-small
@@ -130,22 +177,3 @@ body {
    max-height: 60px;
    font-family: 'Open Sans', sans-serif;
 }
-
-.my-panel-title{
-  font-family: 'Open Sans', sans-serif;
-  font-size: 15px;
-  text-align: center;
-}
-
-.my-panel-foot{
-  overflow:auto;
-}
-
-.button-left {
-  float:left;
-}
-
-.button-right {  
-  float:right;
-}
-

@@ -10,7 +10,7 @@
       <span class="filename-checkbox">
       <%= check_box_tag "file[]","file.id", false%>
       </span>
-      <%= text_field_tag "file[]", file.name, maxlength: 30, class: "small-text", id: "file_text#{index}",   onclick: "unabbrevIfAbbrev(this,#{index})", onblur: "abbrevIfTextOverflow(this.id,#{index})"%>
+      <%= text_field_tag "file[]", file.name, maxlength: 30, class: "small-text", id: "file_text#{index}", onclick: "unabbrevIfAbbrev(this,#{index})", onblur: "abbrevIfTextOverflow(this.id,#{index})", onchange: "updateOriginalFileName(this,#{index})"%>
     </div>
   <% end %>
   <% @files.each_with_index do |file, index| %>
