@@ -19,8 +19,8 @@ class Api::V1::NoteFilesController < ApplicationController
   end
 
   def rename
-    if current_user
-        user_id = current_user.id
+    if true #current_user
+        user_id = 1#current_user.id
         file_id = params[:id]
         name = params[:name]
         file = NoteFile.find_by(id: file_id, user_id: user_id)
