@@ -1,5 +1,5 @@
 <div class = "newspaper" id ="filesNewspaper" >
-    <div ng-repeat="noteFile in noteFiles" ng-attr-id="{{file_line+$index}}" ng-class="$index%2==0? 'file-even' : 'file-odd'" >  
+    <div ng-repeat="noteFile in noteFiles" ng-attr-id="{{'file_line'+$index}}" ng-class="$index%2==0? 'file-even' : 'file-odd'" >  
       <span class="filename-checkbox">
       <input type="checkbox" 
       name="files[]" 
@@ -12,12 +12,14 @@
       class="small-text" 
       ng-attr-id="{{'file_text'+$index}}" 
       ng-click= "unabbrevIfAbbrev(this,$index)" 
-      ng-blur= "abbrevIfTextOverflow(this.id,$index)"
-      ng-change= "$scope.renameFile(); updateOriginalFileName(this,$index)"%>
+      
+      ng-change= "renameFile($index)">
+      <!-- ng-blur= "abbrevIfTextOverflow(this.id,$index)" -->
+      <!-- updateOriginalFileName(this,$index) -->
     </div>
     <script ng-repeat="($index, noteFile) in noteFiles">
-        addTopOrBottomClassToFileInNewspaper('file_line'+ $index, 'filesNewspaper', $index + 1, noteFiles.length);
-        originalFileNames.values[$index]=noteFile.name;
-        abbrevIfTextOverflow('file_text'+ $index, $index);
+        // addTopOrBottomClassToFileInNewspaper('file_line'+ $index, 'filesNewspaper', $index + 1, noteFiles.length);
+        // originalFileNames.values[$index]=noteFile.name;
+        // abbrevIfTextOverflow('file_text'+ $index, $index);
     </script>
 </div>
