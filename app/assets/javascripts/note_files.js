@@ -108,3 +108,12 @@ function updateOriginalFileName(elem, index){
   originalFileNames.values[index] = elem.value;
 }
 
+$(document).ready(function(){
+    var widthOneItem = 50;
+    $(".arrow-left").click(function(){
+        $(".offer-pg-cont").animate({scrollLeft: "-="+widthOneItem});
+    });
+    $(".arrow-right").click(function(){
+        $(".offer-pg-cont").animate({scrollLeft: "+="+widthOneItem});
+    });        
+});
