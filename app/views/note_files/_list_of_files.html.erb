@@ -1,25 +1,28 @@
-<div class = "newspaper" id ="filesNewspaper" >
-    <div ng-repeat="noteFile in noteFiles" ng-attr-id="{{'file_line'+$index}}" ng-class="$index%2==0? 'file-even' : 'file-odd'" >  
+<div class = "newspaper" id ="filesNewspaper"
+  ng-controller="noteFilesCtrl"
+  ng-init="setup()"
+  my-main-directive 
+  >
+    <div ng-repeat="noteFile in noteFiles" 
+      ng-class="$index%2==0? 'file-even' : 'file-odd'" 
+      ng-attr-id="{{'file_line'+$index}}"
+      my-repeat-directive
+      >  
       <span class="filename-checkbox">
-      <input type="checkbox" 
-      name="files[]" 
-      ng-true-value="{{noteFile.id}}" 
-      ng-model="noteFile.selected">
+        <input type="checkbox" 
+          name="files[]" 
+          ng-true-value="{{noteFile.id}}" 
+          ng-model="noteFile.selected">
       </span>
       <input name="file[]" 
-      ng-model="noteFile.name" 
-      ng-maxlength="30" 
-      class="small-text" 
-      ng-attr-id="{{'file_text'+$index}}" 
-      ng-click= "unabbrevIfAbbrev(this,$index)" 
-      
-      ng-change= "renameFile($index)">
-      <!-- ng-blur= "abbrevIfTextOverflow(this.id,$index)" -->
+        ng-model="noteFile.name" 
+        ng-maxlength="30" 
+        class="small-text" 
+        ng-attr-id="{{'file_text'+$index}}" 
+        ng-click= "unabbrevIfAbbrev(this,$index)" 
+        ng-change= "renameFile($index)" ng-model-options="{ updateOn: 'blur' }" ng-blur="abbrevIfTextOverflow(this.id,$index)">
+      <!--  -->
       <!-- updateOriginalFileName(this,$index) -->
     </div>
-    <script ng-repeat="($index, noteFile) in noteFiles">
-        // addTopOrBottomClassToFileInNewspaper('file_line'+ $index, 'filesNewspaper', $index + 1, noteFiles.length);
-        // originalFileNames.values[$index]=noteFile.name;
-        // abbrevIfTextOverflow('file_text'+ $index, $index);
-    </script>
+
 </div>
