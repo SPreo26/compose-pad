@@ -104,7 +104,6 @@ $(document).ready( function(){
 
   function addTopOrBottomClassToNewspaperFile(id,parentId,fileNum,numFiles){
     var file_line = document.getElementById(id);
-    console.log(id)
     var parent = file_line.parentElement;
     var parentPaddingTop = parseFloat(getComputedStyle(parent).paddingTop);
     var elemTop = $("\#"+id).position().top;
