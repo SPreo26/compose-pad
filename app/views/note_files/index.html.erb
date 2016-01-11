@@ -1,6 +1,12 @@
-<div class="table-for-centering" ng-app="app">
-  <div class ="cell-for-centering" id="insideMidGrid" div ng-controller="noteFilesCtrl" ng-init="setup()">
-    <div class="panel panel-primary files-panel ">
+<div class="table-for-centering" id="angular-div"
+  ng-app="app"   
+  >
+  <div class ="cell-for-centering" 
+  id="insideMidGrid"
+  >
+    <div 
+    class="panel panel-primary files-panel "
+    >
       <div class="panel-heading">
         <div class="files-panel-title">
         My Files
@@ -14,16 +20,17 @@
       </div>
       <!-- <div class="files-panel-body-padding"></div> -->
       <div class="panel-footer files-panel-foot">
-        <div class="btn btn-primary file-list-button button-left" onclick="document.location='/note_files/cancel_open">
+        <div class="btn btn-primary file-list-button file-list-button-left" onclick="document.location='/note_files/cancel_open">
           Cancel
         </div>
-        <div class="btn btn-primary file-list-button button-center" onclick="openFiles()">
+        <div class="btn btn-primary file-list-button file-list-button-center" onclick="openFiles()">
           Open
         </div>
-        <div class="btn btn-primary file-list-button button-right" onclick="openFiles()">
+        <div class="btn btn-primary file-list-button file-list-button-right" onclick="openFiles()">
           Delete
         </div>
       </div>
     </div>
   </div>
 </div>
+

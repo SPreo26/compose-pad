@@ -1,39 +1,38 @@
 (function () {
   "use strict";
 
-  var app=angular.module("app", []);
-
-  app.directive('onChange', function() {    
-    return {
-      restrict: 'A',
-      scope:{'onChange':'=' },
-      link: function(scope, elm, attrs) {            
-        scope.$watch('onChange', function(nVal) { elm.val(nVal); });            
-        elm.bind('blur', function() {
-          var currentValue = elm.val();                
-          if( scope.onChange !== currentValue ) {
-            scope.$apply(function() {
-              scope.onChange = currentValue;
-            });
-          }
-        });
+  var app=angular.module("app", [])
+  .directive('myRepeatDirective', function() {
+    return function(scope, element, attrs) {
+      if (scope.$last){
+      scope.$emit('LastElem');
       }
-    };        
-  });
+    };
+  })
+
+  // .directive('myMainDirective', function() {
+  //   return function(scope, element, attrs) {
+
+  //   });
+  //   };
+  // });
 
   app.controller("noteFilesCtrl", function($scope, $http) {
 
     $scope.setup = function() {
       $http.get("/api/v1/note_files.json").then(function(response) {
         $scope.noteFiles = response.data;
-        for (var i=0; i<$scope.noteFiles.length; i++){
-          $scope.noteFiles[i].selected = false;
-        }
-        console.log($scope.noteFiles);
+        $scope.$on('LastElem', function(event){
+          angular.element(document).ready(function() {
+              window.onload= console.log(document.getElementById('file_line0'))
+              // addTopOrBottomClassesToNewspaper($scope.noteFiles.length);
+
+          });  
+        });
       },
         function(error){
           console.log(error.data)
-        });
+        })
 
     }
 
@@ -43,10 +42,9 @@
 
 
     $scope.renameFile = function(index){
-      console.log('Yoooooo')
       var id=$scope.noteFiles[index].id;
       var rename_data = {
-        name: $scope.noteFiles[index].name,
+        // name: $scope.noteFiles[index].name,
         rename: true
       };
       $http.patch('/api/v1/note_files/'+id, rename_data).then(function(response) {
@@ -103,12 +101,25 @@
     //   })
      
     // }
-    
+
+    $scope.addTopOrBottomClassesToNewspaper = function(numFiles) {
+        for (var i=0; i<numFiles; i++){
+        addTopOrBottomClassToNewspaperFile('file_line'+ i, 'filesNewspaper', i + 1, numFiles);
+        }
+    }
+
+
     $scope.unabbrevIfAbbrev = function(a,b){
       unabbrevIfAbbrev(a,b);
     }
 
+    // $scope.$on('$viewContentLoaded', function(){
+    //   alert("hi!");
+    //   addTopOrBottomClassesToNewspaper($scope.noteFiles.length);
+    // });
+
     window.$scope = $scope;
   
     });
+
   }());

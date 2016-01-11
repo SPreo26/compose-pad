@@ -5,7 +5,7 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-  <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'> -->
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
   <link rel="shortcut icon" href="/assets/music_notes1_nJp_icon.ico">
   <meta charset="utf-8">
 
@@ -16,10 +16,10 @@
   <meta name="author" content="">
 
   <!-- Bootstrap Core CSS -->
- <!--  <link href="css/bootstrap.min.css" rel="stylesheet"> -->
+  <!--  <link href="css/bootstrap.min.css" rel="stylesheet"> -->
 
   <!-- Custom CSS -->
- <!--  <link href="css/full-slider.css" rel="stylesheet"> -->
+  <!--  <link href="css/full-slider.css" rel="stylesheet"> -->
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -37,7 +37,6 @@
     </div>
     <%end %>
   </div>
-  
 
 <%= yield %>
 
@@ -66,9 +65,9 @@
               <li> 
                 <%= link_to "My Files...", '/my_files' %> 
               </li>
-              <% if @action_is_workspace %>
+              <% if current_user && @action_is_workspace %>
                 <%= render "/note_files/file_menu_when_workspace_shown"%>
-              <% elsif NoteFile.find_by({user_id:current_user.id, file_open: true}) %>
+              <% elsif current_user && NoteFile.find_by({user_id:current_user.id, file_open: true}) %>
                 <%= render "/note_files/file_menu_when_files_open_not_shown"%>
               <% else %>  
                 <li> 
@@ -79,13 +78,6 @@
                 </li>
                 <li> 
                   <a class = "disabled-link"> Save All </a> 
-                </li>
-                <hr style="width: 77%; height: 0em; background: #fff; margin: 10px auto;">
-                <li> 
-                  <%= link_to "Rename...", '#' %>
-                </li>
-                <li>
-                  <%= link_to "Delete...", '#' %>
                 </li>
                 <hr style="width: 77%; height: 0em; background: #fff; margin: 10px auto;">
                 <li> 
@@ -102,10 +94,11 @@
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right navbar-margin-right navbar-margin-bottom">
-          <li> <%= link_to "Sign up", "/users/sign_up", class: "navbar-item-match-tabs" %> </li>    
+          
           <% if current_user %>
             <li> <%= link_to "Sign out", "/users/sign_out", method: "delete",class: "navbar-item-match-tabs" %> </li>
           <% else %>
+            <li> <%= link_to "Sign up", "/users/sign_up", class: "navbar-item-match-tabs" %> </li>    
             <li> <%= link_to "Sign in", "/users/sign_in", class: "navbar-item-match-tabs" %> </li>
           <% end %>
         </ul>
@@ -138,9 +131,6 @@
       <!-- /.container -->
     </div>
   </nav>
-
-<script>
-</script>
 
 <!-- Full Page Image Background Carousel Header -->
 

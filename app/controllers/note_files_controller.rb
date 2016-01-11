@@ -1,17 +1,14 @@
 class NoteFilesController < ApplicationController
 
-  #before_action authenticate_user, #authenticate_admin
-  #def authenticate_user
-  #def authenticate_admin
-
-  @sign_in_message = "Please sign in before you proceed!"
+  before_action :authenticate_user 
+  #authenticate_admin
 
   def new
 
   end
 
   def create
-    if current_user
+    # if current_user
       note_file = NoteFile.new({name: params[:name], user_id: current_user.id, file_open: true})
       if note_file.valid?
         note_file.save
@@ -21,19 +18,11 @@ class NoteFilesController < ApplicationController
         flash[:danger]=messages
         redirect_to "/note_files/new"
       end
-    else
-      flash[:danger]=@sign_in_message
-      redirect_to "/users/sign_in/"
-    end
+    # end
   end
 
   def index
-    if current_user
       @files = NoteFile.where(user_id: current_user).order(name: :asc)
-    else
-      flash[:danger] = @sign_in_message
-      redirect_to "/users/sign_in"
-    end
   end
 
   def open_files

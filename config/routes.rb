@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
-  devise_for :users
+  devise_for :users, controllers: {sessions: "users/sessions"}
+
   devise_scope :user do
     root to: 'devise/sessions#new'
   end
@@ -30,7 +31,7 @@ Rails.application.routes.draw do
       get '/note_files', to: 'note_files#index'
       patch '/note_files/:id', to: 'note_files#update'
       patch '/note_files/:id/rename/', to: 'note_files#rename'
-      patch '/note_files/:id/save/', to: 'note_files#rename'
+      patch '/note_files/:id/save/', to: 'note_files#save'
     end
   end
 
