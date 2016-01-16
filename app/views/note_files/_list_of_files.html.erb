@@ -1,13 +1,11 @@
 <div class = "newspaper" id ="filesNewspaper"
   ng-controller="noteFilesCtrl"
   ng-init="setup()"
-  my-main-directive 
   >
     <div ng-repeat="noteFile in noteFiles" 
       ng-class="$index%2==0? 'file-even' : 'file-odd'" 
       ng-attr-id="{{'file_line'+$index}}"
-      my-repeat-directive
-      repeat-complete="addTopOrBottomClassesToNewspaper(noteFiles.length)"
+      repeat-complete="fileLineFormatting(noteFiles.length)"
       >  
       <span class="filename-checkbox">
         <input type="checkbox" 
