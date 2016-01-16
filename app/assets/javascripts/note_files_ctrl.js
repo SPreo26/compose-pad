@@ -1,22 +1,6 @@
 (function () {
   "use strict";
-
-  var app=angular.module("app", [])
-  app.directive('myRepeatDirective', function() {
-    return function(scope, element, attrs) {
-      if (scope.$last){
-      scope.$emit('LastElem');
-      }
-    };
-  })
-
-  // .directive('myMainDirective', function() {
-  //   return function(scope, element, attrs) {
-
-  //   });
-  //   };
-  // });
-
+  var app=angular.module("app", []);
   app.directive(
             "repeatComplete",
             function( $rootScope ) {
@@ -34,9 +18,6 @@
                     // Add the unique ID so we know how to query for
                     // DOM elements during the digests.
                     tElement.attr( "repeat-complete-id", id );
-                    // Since this directive doesn't have a linking phase,
-                    // remove it from the DOM node.
-                    tElement.removeAttr( "repeat-complete" );
                     // Keep track of the expression we're going to
                     // invoke once the ng-repeat has finished
                     // rendering.
@@ -56,7 +37,6 @@
                     // once, so save a referene to the un-watcher.
                     var unbindWatcher = parentScope.$watch(
                         function() {
-                            console.info( "Digest running." );
                             // Now that we're in a digest, check to see
                             // if there are any ngRepeat items being
                             // rendered. Since we want to know when the
@@ -74,9 +54,6 @@
                             // that the ng-repeat directive has finished
                             // rendering its list (for the first time).
                             if ( itemScope.$last ) {
-                                // Stop watching for changes - we only
-                                // care about the first complete rendering.
-                                unbindWatcher();
                                 // Invoke the callback.
                                 itemScope.$eval( completeExpression );
                             }
@@ -185,15 +162,18 @@
      
     // }
 
-    $scope.addTopOrBottomClassesToNewspaper = function(numFiles) {
+    $scope.fileLineFormatting = function(numFiles) {
         for (var i=0; i<numFiles; i++){
-        addTopOrBottomClassToNewspaperFile('file_line'+ i, 'filesNewspaper', i + 1, numFiles);
+          var id='file_line'+ i;
+          //abbrevIfTextOverflow(id, i);
+          
+          addTopOrBottomClassToNewspaperFile(id, 'filesNewspaper', i + 1, numFiles);
         }
     }
 
 
-    $scope.unabbrevIfAbbrev = function(a,b){
-      unabbrevIfAbbrev(a,b);
+    $scope.unabbrevIfAbbrev = function(elem,index){
+      unabbrevIfAbbrev(elem,index);
     }
 
     // $scope.$on('$viewContentLoaded', function(){

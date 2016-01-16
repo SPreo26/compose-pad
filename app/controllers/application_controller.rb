@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource_or_scope)
 
       if NoteFile.find_by(file_open: true)
-        # puts "WORKSPACE!!!!!"
         "/workspace"
       else
         "/my_files/"

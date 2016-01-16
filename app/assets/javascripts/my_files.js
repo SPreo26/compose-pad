@@ -1,64 +1,17 @@
-$(document).ready( function(){
-
-  // function setup() {
-  //   angular.element(document.getElementById('angular-div')).scope().setup;
-  // }
-  
+ 
   
   // originalFileNames.values[$index]=noteFile.name;
   // abbrevIfTextOverflow('file_text'+ $index, $index);
-
-  function saveFile() {
-    getActiveForm().submit();
-  }
-
-  function closeFile() {
-    formAction = getActiveForm().getAttribute("action");
-
-    id = formAction.substring(formAction.lastIndexOf("/")+1,formAction.length);
-
-    window.location.href = "/note_files/" + id + "/close_file";
-    // var child1 = document.getElementsByClassName("active")[0];
-
-    // var parent1 = child1.parentElement;
-
-    // var activePaneUrl = child1.getElementsByTagName("a")[0].href;
-
-    // var child2 = document.getElementById(activePaneUrl.substring(activePaneUrl.indexOf("#")+1,activePaneUrl.length));
-
-    // var parent2 = child2.parentElement;
-
-    // parent1.removeChild(child1);
-    // parent2.removeChild(child2);
-
-  }
-
-  function createFile() {
-    var form = document.getElementById("file-create-form");
-      form.submit();
-  }
-
-  function getActiveForm() {
-    var activePaneUrl = document.getElementsByClassName("active")[0].getElementsByTagName("a")[0].href;
-
-    var activePaneId = activePaneUrl.substring(activePaneUrl.indexOf("#")+1,activePaneUrl.length);
-
-    var form = document.getElementById(activePaneId).getElementsByTagName("form")[0];
-
-    return form;
-  }
-
-  function eraseText() {
-    document.getElementById("file-create-form").getElementsByTagName("textarea")[0].innerHTML="";
-  }
+  
 
   function abbrevIfTextOverflow(id, index){
-    if ($('#'+id)[0].scrollWidth >  $('#'+id).innerWidth()) {
-      var file_text_elem = document.getElementById(id);
-      text=file_text_elem.value;
-      abbrevText(file_text_elem, text);
-      originalFileNames.values[index] = "\n" + originalFileNames.values[index]; //mark that abbreviation was made with an illegal newline character in array of original names 
-    }
+    // need to replace this with text width funct
+    // if ( $('#'+id)[0].scrollWidth >  $('#'+id).innerWidth()) {
+    //   var file_text_elem = document.getElementById(id);
+    //   text=file_text_elem.value;
+    //   abbrevText(file_text_elem, text);
+    //   // originalFileNames.values[index] = "\n" + originalFileNames.values[index]; //mark that abbreviation was made with an illegal newline character in array of original names 
+    // }
   }
 
   function abbrevText(text_elem, text){
@@ -99,9 +52,6 @@ $(document).ready( function(){
   }
 
 
-});
-
-
   function addTopOrBottomClassToNewspaperFile(id,parentId,fileNum,numFiles){
     var file_line = document.getElementById(id);
     var parent = file_line.parentElement;
@@ -131,3 +81,13 @@ $(document).ready( function(){
   //       $(".offer-pg-cont").animate({scrollLeft: "+="+widthOneItem});
   //   });        
   // }
+
+//to get the text width
+// $.fn.textWidth = function(){
+//   var html_org = $(this).html();
+//   var html_calc = '<span>' + html_org + '</span>';
+//   $(this).html(html_calc);
+//   var width = $(this).find('span:first').width();
+//   $(this).html(html_org);
+//   return width;
+// };
