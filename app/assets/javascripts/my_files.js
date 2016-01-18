@@ -1,5 +1,7 @@
- 
-  
+window.addEventListener("beforeunload", function (e) {
+
+  return
+});
   // originalFileNames.values[$index]=noteFile.name;
   // abbrevIfTextOverflow('file_text'+ $index, $index);
   
@@ -72,6 +74,20 @@
     }
   }
 
+  function deleteFiles() {
+    var scope = angular.element(
+      document.
+      getElementById("filesNewspaper")).
+      scope();
+    scope.$apply(function () {
+      scope.deleteFiles();
+    });
+  }
+
+  function openFiles() {
+    var form = document.getElementById("open_rename_or_delete_files_form");
+    form.submit();
+  }
   // function(){
   //   var widthOneItem = 50;
   //   $(".arrow-left").click(function(){

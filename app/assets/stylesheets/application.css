@@ -3,6 +3,7 @@
  *= require theme/full-slider
  *= require theme/bootstrap
  *= require theme/full-slider
+ *= require animate
  *= require_tree .
  *= require_self
  */

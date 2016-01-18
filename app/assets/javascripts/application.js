@@ -5,6 +5,7 @@
 //= require jquery_ujs
 //= require theme/bootstrap
 //= require angular
+//= require angular-animate
 //= require app
 //= require_tree .
 

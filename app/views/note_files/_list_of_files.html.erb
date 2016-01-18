@@ -1,4 +1,5 @@
-<div class = "newspaper" id ="filesNewspaper"
+<div class = "newspaper" 
+  id ="filesNewspaper"
   ng-controller="noteFilesCtrl"
   ng-init="setup()"
   >
@@ -9,9 +10,10 @@
       >  
       <span class="filename-checkbox">
         <input type="checkbox" 
-          name="files[]" 
+          name="files[{{noteFile.id}}]" 
           ng-true-value="{{noteFile.id}}" 
-          ng-model="noteFile.selected">
+          ng-model="noteFile.selected"
+        >
       </span>
       <input name="file[]" 
         ng-model="noteFile.name" 
@@ -20,6 +22,10 @@
         ng-attr-id="{{'file_text'+$index}}" 
         ng-click= "unabbrevIfAbbrev(this,$index)" 
         ng-change= "renameFile($index)" ng-model-options="{ updateOn: 'blur' }" ng-blur="abbrevIfTextOverflow(this.id,$index)">
+        <p class="animate-rename-status " ng-show="noteFiles[$index].renameJustFinished">renamed!
+        </p>
+        <p class="animate-rename-status" ng-show="noteFiles[$index].renameError">rename failed!
+        </p>
       <!--  -->
       <!-- updateOriginalFileName(this,$index) -->
     </div>

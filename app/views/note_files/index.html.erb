@@ -2,7 +2,6 @@
   ng-app="app"   
   >
   <div class ="cell-for-centering" 
-  id="insideMidGrid"
   >
     <div 
     class="panel panel-primary files-panel "
@@ -14,7 +13,7 @@
       </div>
       <!-- <div class="files-panel-body-padding"></div> -->
       <div class="panel-body files-panel-body">
-        <%= form_tag "/note_files/open_rename_or_delete", method: 'get', id: "open_rename_or_delete_files_form" do %>
+        <%= form_tag "/note_files/open", method: 'get', id: "open_rename_or_delete_files_form" do %>
         <%= render "list_of_files"%>
         <% end %>
       </div>
@@ -26,7 +25,7 @@
         <div class="btn btn-primary file-list-button file-list-button-center" onclick="openFiles()">
           Open
         </div>
-        <div class="btn btn-primary file-list-button file-list-button-right" onclick="openFiles()">
+        <div class="btn btn-primary file-list-button file-list-button-right" onclick="deleteFiles()">
           Delete
         </div>
       </div>

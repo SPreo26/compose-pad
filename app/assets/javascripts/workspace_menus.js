@@ -10,8 +10,6 @@
     window.location.href = "/note_files/" + id + "/close_file";
   }
 
- 
-
   function getActiveForm() {
     var activePaneUrl = document.getElementsByClassName("active")[0].getElementsByTagName("a")[0].href;
 

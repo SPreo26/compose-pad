@@ -25,16 +25,10 @@ class NoteFilesController < ApplicationController
       @files = NoteFile.where(user_id: current_user).order(name: :asc)
   end
 
-  def open_files
-
-  end
-
-  def rename_files
-
-  end
-
-  def delete_files
-
+  def open
+    files = NoteFile.where(id:params[:files].keys)
+    files.update_all(file_open:true)
+    redirect_to "/workspace"
   end
 
   def workspace
@@ -49,14 +43,16 @@ class NoteFilesController < ApplicationController
   end
 
   def save
-    notes_to_save=params[:file][:notes]
-    note_file=NoteFile.find_by({id: params[:id], user_id: current_user.id})
+    if params[:file]
+      notes_to_save=params[:file][:notes]
+      note_file=NoteFile.find_by({id: params[:id], user_id: current_user.id})
 
-    notes_to_save.each do |pitch, start_indeces|
-      start_indeces.each do |start_index|
-        unless LoadedNote.find_by({file_id:note_file.id, pitch: pitch, start_index: start_index})
-          #if pitch_okay? && start_index_okay? #add this later
-          LoadedNote.create({file_id: note_file.id, pitch: pitch, velocity: 100, start_index: start_index})
+      notes_to_save.each do |pitch, start_indeces|
+        start_indeces.each do |start_index|
+          unless LoadedNote.find_by({file_id:note_file.id, pitch: pitch, start_index: start_index})
+            #if pitch_okay? && start_index_okay? #add this later
+            LoadedNote.create({file_id: note_file.id, pitch: pitch, velocity: 100, start_index: start_index})
+          end
         end
       end
     end
