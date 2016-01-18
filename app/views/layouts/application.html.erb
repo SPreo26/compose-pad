@@ -10,24 +10,17 @@
   <link rel="shortcut icon" href="/assets/music_notes1_nJp_icon.ico">
   <meta charset="utf-8">
 
-  <!--Well here's my bootstrap theme header...-->
+  <!--Well here's my Bootstrap theme header...-->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
+  <!--End Bootstrap-->
 
-  <!-- Bootstrap Core CSS -->
-  <!--  <link href="css/bootstrap.min.css" rel="stylesheet"> -->
-
-  <!-- Custom CSS -->
-  <!--  <link href="css/full-slider.css" rel="stylesheet"> -->
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
+  <!--MIDI js -->
+  <!-- polyfill -->
+ 
+  <!-- End MIDI js -->
 </head>
 <body style="background-color:#222;">
   <div class="flash-messages">
@@ -138,6 +131,27 @@
   </nav>
 
 <!-- Full Page Image Background Carousel Header -->
+<script>
+window.onload = function () {
+  wow();
+  MIDI.loadPlugin({
+    soundfontUrl: "./soundfont/",
+    instrument: "acoustic_grand_piano",
+    onprogress: function(state, progress) {
+      console.log(state, progress);
+    },
+    onsuccess: function() {
+      var delay = 0; // play one note every quarter second
+      var note = 50; // the MIDI note
+      var velocity = 127; // how hard the note hits
+      // play the note
+      MIDI.setVolume(0, 127);
+      MIDI.noteOn(0, note, velocity, delay);
+      MIDI.noteOff(0, note, delay + 0.75);
+    }
+  });
+};
+</script>
 
 </body>
 </html>
