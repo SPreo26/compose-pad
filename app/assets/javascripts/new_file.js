@@ -6,3 +6,5 @@ function createFile() {
   function eraseText() {
     document.getElementById("file-create-form").getElementsByTagName("textarea")[0].innerHTML="";
   }
+
+
