@@ -1,92 +1,49 @@
 (function () {
   "use strict";
-  var app=angular.module("app", []);
+  var app=angular.module("app", ["ngAnimate"]);
   app.directive(
-            "repeatComplete",
-            function( $rootScope ) {
-                // Because we can have multiple ng-repeat directives in
-                // the same container, we need a way to differentiate
-                // the different sets of elements. We'll add a unique ID
-                // to each set.
-                var uuid = 0;
-                // I compile the DOM node before it is linked by the
-                // ng-repeat directive.
-                function compile( tElement, tAttributes ) {
-                    // Get the unique ID that we'll be using for this
-                    // particular instance of the directive.
-                    var id = ++uuid;
-                    // Add the unique ID so we know how to query for
-                    // DOM elements during the digests.
-                    tElement.attr( "repeat-complete-id", id );
-                    // Keep track of the expression we're going to
-                    // invoke once the ng-repeat has finished
-                    // rendering.
-                    var completeExpression = tAttributes.repeatComplete;
-                    // Get the element that contains the list. We'll
-                    // use this element as the launch point for our
-                    // DOM search query.
-                    var parent = tElement.parent();
-                    // Get the scope associated with the parent - we
-                    // want to get as close to the ngRepeat so that our
-                    // watcher will automatically unbind as soon as the
-                    // parent scope is destroyed.
-                    var parentScope = ( parent.scope() || $rootScope );
-                    // Since we are outside of the ng-repeat directive,
-                    // we'll have to check the state of the DOM during
-                    // each $digest phase; BUT, we only need to do this
-                    // once, so save a referene to the un-watcher.
-                    var unbindWatcher = parentScope.$watch(
-                        function() {
-                            // Now that we're in a digest, check to see
-                            // if there are any ngRepeat items being
-                            // rendered. Since we want to know when the
-                            // list has completed, we only need the last
-                            // one we can find.
-                            var lastItem = parent.children( "*[ repeat-complete-id = '" + id + "' ]:last" );
-                            // If no items have been rendered yet, stop.
-                            if ( ! lastItem.length ) {
-                                return;
-                            }
-                            // Get the local ng-repeat scope for the item.
-                            var itemScope = lastItem.scope();
-                            // If the item is the "last" item as defined
-                            // by the ng-repeat directive, then we know
-                            // that the ng-repeat directive has finished
-                            // rendering its list (for the first time).
-                            if ( itemScope.$last ) {
-                                // Invoke the callback.
-                                itemScope.$eval( completeExpression );
-                            }
-                        }
-                    );
-                }
-                // Return the directive configuration. It's important
-                // that this compiles before the ngRepeat directive
-                // compiles the DOM node.
-                return({
-                    compile: compile,
-                    priority: 1001,
-                    restrict: "A"
-                });
+    "repeatComplete",
+    function( $rootScope ) {
+        var uuid = 0;
+       
+        function compile( tElement, tAttributes ) {
+            
+          var id = ++uuid;    
+          tElement.attr( "repeat-complete-id", id );
+          var completeExpression = tAttributes.repeatComplete;
+          var parent = tElement.parent();
+          var parentScope = ( parent.scope() || $rootScope );
+
+          var unbindWatcher = parentScope.$watch(
+            function() {
+              var lastItem = parent.children( "*[ repeat-complete-id = '" + id + "' ]:last" );
+                
+              if ( ! lastItem.length ) {
+                return;
+              }
+              
+              var itemScope = lastItem.scope();
+              
+              if ( itemScope.$last ) {
+                itemScope.$eval( completeExpression );
+              }
             }
-        );
+          );
+        }
+        return({
+            compile: compile,
+            priority: 1001,
+            restrict: "A"
+        });
+    }
+  );
 
   app.controller("noteFilesCtrl", function($scope, $http) {
 
     $scope.setup = function() {
       $http.get("/api/v1/note_files.json").then(function(response) {
         $scope.noteFiles = response.data;
-        // $scope.$on('LastElem', function(event){
-        //   angular.element(document).ready(function() {
-        //       // window.onload= 
-
-
-   
-        //       });
-
-        //       // addTopOrBottomClassesToNewspaper($scope.noteFiles.length);
-
-        //   });  
+        $scope.deselectAllFiles($scope.noteFiles)
         },
         function(error){
           console.log(error.data);
@@ -94,73 +51,75 @@
       )
     }
 
+    $scope.deselectAllFiles = function() {
+      for(var i=0; i<$scope.noteFiles.length; i++) {
+        $scope.noteFiles[i].selected = false
+      }
+    }
 
-
-    $scope.selectedFiles = function () {
-    return filterFilter($scope.noteFiles, { selected: true });
+    $scope.selectedFileIds = function() {
+      var selectedFileIds = [];
+      for(var i=0; i<$scope.noteFiles.length; i++) {
+        if ($scope.noteFiles[i].selected){
+          selectedFileIds.push($scope.noteFiles[i].id)
+        }
+      }
+      return selectedFileIds  ;
     };
 
-
     $scope.renameFile = function(index){
-      var id=$scope.noteFiles[index].id;
-      var rename_data = {
-        // name: $scope.noteFiles[index].name,
-        rename: true
-      };
-      $http.patch('/api/v1/note_files/'+id, rename_data).then(function(response) {
-        $scope.RenamedFiles = response.data;
+      // if (index){
+        var id=$scope.noteFiles[index].id;
+        var renameData = {
+          name: $scope.noteFiles[index].name,
+          rename: true
+        };
+      // } else {
+          // var id = 1;
+          // var rename_data = {
+          //   name: "test", 
+          //   rename: true
+          // };
+          // console.log("FASFA");
+      // };
+      $http.patch('/api/v1/note_files/'+id, renameData).then(function(response) {
+        $scope.renamedFile = response.data;
         console.log('Renamed');
-        console.log($scope.noteFiles);
+        console.log($scope.renamedFile);
+        $scope.noteFiles[index].renameJustFinished = true;
+        setTimeout(function(){
+          $scope.$apply(function(){
+            $scope.noteFiles[index].renameJustFinished = false;
+            });
+          },1050)        
+      },
+        function(error){
+          console.log(error.data)
+          $scope.noteFiles[index].renameError = true;
+          setTimeout(function(){
+          $scope.noteFiles[index].renameError = false;
+            setTimeout(function(){
+              $scope.setup();
+            },1050)
+        },1050);
+        });
+    }
+
+    $scope.deleteFiles = function() {
+      var deleteData = {
+        file_ids: $scope.selectedFileIds()
+      };
+
+      $http.patch('/api/v1/note_files/delete_files/', deleteData).then(function(response) {
+        $scope.DeletedFiles = response.data;
+        console.log('Deleted');
+        console.log($scope.DeletedFiles);
+        $scope.setup();
       },
         function(error){
           console.log(error.data)
         });
     }
-
-    // $scope.deleteShow = function(index){
-    //   var id = $scope.shows[index].id;
-    //   $http.delete('/api/v1/shows/'+id).then(
-    //     function(response){
-    //     console.log(response.data);
-    //     $scope.shows.splice(index,1);
-    //   },
-    //     function(error){
-    //     console.log(error.data);
-    //   })
-    // }
-
-    // $scope.addShow = function(newDatetime, newArtistName, newVenue, newCity, newRegion, newCountry) {
-    //   var newShow = {
-    //     datetime: newDatetime,
-    //     artsists: newArtistName,
-    //     venue: newVenue,
-    //     city: newCity,
-    //     region: newRegion,
-    //     country: newCountry
-    //   };
-    //   $http.post('/api/v1/shows.json', newShow).then(
-    //     function(response){
-    //     var showCallback = response.data;
-    //     $scope.shows.push(showCallback);
-    //   },
-    //     function(error){
-    //     console.log(error.data.errors);
-    //   })
-    // }
-
-
-    // $scope.deleteFile = function(index){
-    //   var id = $scope.shows[index].id;
-    //   $http.delete('/api/v1/shows/'+id, $scope.shows[index]).then(
-    //     function(response){
-    //     console.log(response.data);
-    //     $scope.shows.splice(index,1);
-    //   },
-    //     function(error){
-    //     console.log(error.data);
-    //   })
-     
-    // }
 
     $scope.fileLineFormatting = function(numFiles) {
         for (var i=0; i<numFiles; i++){
@@ -173,16 +132,24 @@
 
 
     $scope.unabbrevIfAbbrev = function(elem,index){
-      unabbrevIfAbbrev(elem,index);
+      // unabbrevIfAbbrev(elem,index);
     }
-
-    // $scope.$on('$viewContentLoaded', function(){
-    //   alert("hi!");
-    //   addTopOrBottomClassesToNewspaper($scope.noteFiles.length);
-    // });
 
     window.$scope = $scope;
   
     });
 
-  }());
+  // app.run([
+  //   '$window',
+  //   '$rootScope',
+  //   function($window, $rootScope) {
+  //     $window.addEventListener('beforeunload', function() {
+  //       if(window.location.href.indexOf("my_files") > -1 && document.activeElement.id.indexOf("file_text")> -1 || true) {
+  //         var index = parseInt(document.activeElement.id.slice("file_text") );
+  //         $scope.renameFile(index);
+  //       }
+  //     });
+  //   }
+  // ]);
+
+}());
