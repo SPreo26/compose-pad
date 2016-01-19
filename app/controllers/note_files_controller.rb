@@ -43,20 +43,23 @@ class NoteFilesController < ApplicationController
   end
 
   def save
-    if params[:file]
-      notes_to_save=params[:file][:notes]
       note_file=NoteFile.find_by({id: params[:id], user_id: current_user.id})
+    if note_file
 
-      notes_to_save.each do |pitch, start_indeces|
-        start_indeces.each do |start_index|
-          unless LoadedNote.find_by({note_file_id:note_file.id, pitch: pitch, start_index: start_index})
-            #if pitch_okay? && start_index_okay? #add this later
-            LoadedNote.create({note_file_id: note_file.id, pitch: pitch, velocity: 100, start_index: start_index})
-          end
-        end
+      if params[:file]
+        notes_to_add=params[:file][:notes]
+        saved_notes=LoadedNote.where( note_file_id: note_file.id)
+        destroy_deleted_notes(saved_notes,notes_to_add)
+        create_new_notes(saved_notes,notes_to_add,note_file)     
+      else#if form in view is completely blank
+        LoadedNote.where(note_file_id: note_file.id).destroy_all
+        #make sure any notes saved for that file are destroyed
       end
+
+      flash[:success]="File saved!"
+    else
+      flash[:danger]="File id #{params[:id]} not found!"
     end
-    flash[:success]="File saved!"
     redirect_to "/workspace"
   end
 
@@ -74,6 +77,10 @@ class NoteFilesController < ApplicationController
       note_file.update(file_open: false)
     end
     redirect_to '/workspace'
+  end
+
+  def revert
+
   end
 
   def close_all
@@ -114,4 +121,51 @@ class NoteFilesController < ApplicationController
     get_workspace_constants()
   end
 
+  def destroy_deleted_notes(saved_notes,notes_to_add)
+    saved_notes.each do |saved_note|
+      
+      saved_note_deleted=true
+      #will be set to false if note with same pitch and start index is found in data sent from view
+      notes_to_add.each do |pitch,start_indeces|
+
+        start_indeces.each do |start_index|
+
+          if saved_note.pitch==pitch && saved_note.start_index == start_index
+            saved_note_deleted=false
+          end
+
+        end       
+      end
+
+      if saved_note_deleted
+        saved_note.destroy
+      end
+    end
+
+  end
+
+
+  def create_new_notes(saved_notes,notes_to_add,note_file)
+
+    notes_to_add.each do |pitch,start_indeces|
+
+      start_indeces.each do |start_index|
+        added_note_new=true
+        #will be set to false if note with same pitch and start index is found in data sent from view
+        #if pitch_okay? && start_index_okay? #add this later
+
+        saved_notes.each do |saved_note|
+          if saved_note.pitch==pitch && saved_note.start_index == start_index
+            added_note_new=false
+          end   
+        end
+
+        if added_note_new
+          LoadedNote.create({note_file_id: note_file.id, pitch: pitch, velocity: 100, start_index: start_index})
+        end
+
+      end
+    end
+    
+  end 
 end
