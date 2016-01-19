@@ -11,19 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160110181638) do
+ActiveRecord::Schema.define(version: 20160119005132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "loaded_notes", force: :cascade do |t|
-    t.integer  "file_id"
+    t.integer  "note_file_id"
     t.string   "pitch"
     t.string   "velocity"
     t.string   "start_index"
     t.boolean  "selected"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "note_files", force: :cascade do |t|

@@ -49,9 +49,9 @@ class NoteFilesController < ApplicationController
 
       notes_to_save.each do |pitch, start_indeces|
         start_indeces.each do |start_index|
-          unless LoadedNote.find_by({file_id:note_file.id, pitch: pitch, start_index: start_index})
+          unless LoadedNote.find_by({note_file_id:note_file.id, pitch: pitch, start_index: start_index})
             #if pitch_okay? && start_index_okay? #add this later
-            LoadedNote.create({file_id: note_file.id, pitch: pitch, velocity: 100, start_index: start_index})
+            LoadedNote.create({note_file_id: note_file.id, pitch: pitch, velocity: 100, start_index: start_index})
           end
         end
       end
@@ -90,17 +90,6 @@ class NoteFilesController < ApplicationController
 
 
   private
-
-  def get_workspace_constants
-      @max_measure = 2
-      @beats_per_measure = 4
-      @divisions_per_beat = 4
-      @max_octave = 4
-      @min_octave = 3
-      @max_tone = "B"
-      @min_tone = "C"
-      @tones_array = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"].reverse#reverse as table in view is built from top down
-  end
 
   def pitch_okay?(pitch)
     get_workspace_constants()

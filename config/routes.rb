@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       get '/note_files', to: 'note_files#index'
+      get '/note_files/open', to: 'note_files#open'
       patch '/note_files/delete_files/', to: 'note_files#delete_files'
       patch '/note_files/:id', to: 'note_files#update'
       patch '/note_files/:id/rename/', to: 'note_files#rename'
