@@ -44,6 +44,7 @@
       $http.get("/api/v1/note_files.json").then(function(response) {
         $scope.noteFiles = response.data;
         $scope.deselectAllFiles($scope.noteFiles)
+          console.log($scope.noteFiles)
         },
         function(error){
           console.log(error.data);

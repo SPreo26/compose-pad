@@ -73,12 +73,12 @@ class Api::V1::NoteFilesController < ApplicationController
 
         files.each do |file|
           file_j=file.as_json
-          notes_j=file.loaded_notes.as_json
+          notes_j=convert_notes_to_tones_and_octaves(file.loaded_notes.as_json)
           file_j["notes"]=notes_j
           files_j<<file_j
         end
         workspace_data["files"]=files_j
-        get_workspace_constants
+        get_workspace_constants#get all the @instance variables called on below
         workspace_data["divisions"]=[]
 
         1.upto(@max_measure) do |measure|
@@ -88,13 +88,14 @@ class Api::V1::NoteFilesController < ApplicationController
             end
           end
         end
-        workspace_data["tones"]=[]
+        workspace_data["pitches_in_workspace"]=[]
         
         @max_octave.downto(@min_octave) do |octave|
           @tones_array.each_with_index do |tone, tone_index|
-            workspace_data["tones"]<<"#{tone}#{octave}"
+            workspace_data["pitches_in_workspace"]<<"#{tone}#{octave}"
           end
         end
+        workspace_data["octave_tones"]=@tones_array.reverse
         render json: workspace_data
       else
         render json: {message: "No files open!"}, status: 404
