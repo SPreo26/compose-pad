@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
       flash[:danger] = sign_in_message()
       redirect_to :root
     end
-2
+
   end
 
   def sign_in_message
@@ -44,6 +44,19 @@ class ApplicationController < ActionController::Base
   # In Rails 4.2 and above
   def verified_request?
     super || valid_authenticity_token?(session, request.headers['X-XSRF-TOKEN'])
+  end
+
+  private
+
+  def get_workspace_constants
+      @max_measure = 2
+      @beats_per_measure = 4
+      @divisions_per_beat = 4
+      @max_octave = 4
+      @min_octave = 3
+      @max_tone = "B"
+      @min_tone = "C"
+      @tones_array = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"].reverse#reverse as table in view is built from top down
   end
 
 end

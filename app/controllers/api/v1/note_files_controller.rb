@@ -63,4 +63,44 @@ class Api::V1::NoteFilesController < ApplicationController
     end
   end
 
+  def open
+    if true#current_user
+      user_id=1#current_user.id
+      files = NoteFile.where(user_id: user_id, file_open: true)
+      if files
+        workspace_data={}
+        files_j=[]
+
+        files.each do |file|
+          file_j=file.as_json
+          notes_j=file.loaded_notes.as_json
+          file_j["notes"]=notes_j
+          files_j<<file_j
+        end
+        workspace_data["files"]=files_j
+        get_workspace_constants
+        workspace_data["divisions"]=[]
+
+        1.upto(@max_measure) do |measure|
+          1.upto(@beats_per_measure) do |beat|
+            1.upto(@divisions_per_beat) do |division|
+              workspace_data["divisions"]<<"#{measure}.#{beat}.#{division}"
+            end
+          end
+        end
+        workspace_data["tones"]=[]
+        
+        @max_octave.downto(@min_octave) do |octave|
+          @tones_array.each_with_index do |tone, tone_index|
+            workspace_data["tones"]<<"#{tone}#{octave}"
+          end
+        end
+        render json: workspace_data
+      else
+        render json: {message: "No files open!"}, status: 404
+      end
+    else
+      render json: {message: "Must be signed in!"}, status: 401
+    end
+  end
 end

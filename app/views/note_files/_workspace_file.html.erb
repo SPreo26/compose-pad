@@ -7,7 +7,7 @@
         <% 1.upto(@divisions_per_beat) do |div_index| %>
           <% if div_index == 1 %>
             <td width="<%= 2* @divisions_per_beat %>%" colspan="<%= @divisions_per_beat %>">
-              <%= "#{measure_index.to_s}.#{beat_index.to_s}" %>
+              <%= "#{measure_index}.#{beat_index}" %>
               <%#label only printed on beat %>
             </td>
           <% end %>
@@ -35,7 +35,7 @@
             <% 1.upto(@divisions_per_beat) do |division_index| %>    
               <td>
                 <% @start_index = "#{measure_index}.#{beat_index}.#{division_index}" %>
-                <% if LoadedNote.find_by(file_id:@opened_file.id, pitch: @pitch, start_index: @start_index) %> 
+                <% if LoadedNote.find_by(note_file_id:@opened_file.id, pitch: @pitch, start_index: @start_index) %> 
                   <% @is_checked = true %>
                 <% else %>     
                   <% @is_checked = false %>
@@ -48,8 +48,6 @@
       </tr>
     <% end %>
   <% end %>
-
-
 
 </table>
 <% end %>

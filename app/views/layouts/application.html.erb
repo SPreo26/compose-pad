@@ -71,9 +71,9 @@
                 <li> 
                   <a class = "disabled-link"> Save </a> 
                 </li>
-                <li> 
+<!--                 <li> 
                   <a class = "disabled-link"> Save As... </a>
-                </li>
+                </li> -->
                 <li> 
                   <a class = "disabled-link"> Save All </a> 
                 </li>
@@ -81,9 +81,9 @@
                 <li> 
                   <a class = "disabled-link"> Close </a> 
                 </li>
-                <li> 
+<!--                 <li> 
                   <a class = "disabled-link"> Revert File </a>
-                </li>
+                </li> -->
                 <li> 
                   <a class = "disabled-link"> Close All </a> 
                 </li>
@@ -131,27 +131,27 @@
   </nav>
 
 <!-- Full Page Image Background Carousel Header -->
-<script>
-window.onload = function () {
-  wow();
-  MIDI.loadPlugin({
-    soundfontUrl: "./soundfont/",
-    instrument: "acoustic_grand_piano",
-    onprogress: function(state, progress) {
-      console.log(state, progress);
-    },
-    onsuccess: function() {
-      var delay = 0; // play one note every quarter second
-      var note = 50; // the MIDI note
-      var velocity = 127; // how hard the note hits
-      // play the note
-      MIDI.setVolume(0, 127);
-      MIDI.noteOn(0, note, velocity, delay);
-      MIDI.noteOff(0, note, delay + 0.75);
-    }
-  });
-};
-</script>
+// <script>
+// window.onload = function () {
+//   wow();
+//   MIDI.loadPlugin({
+//     soundfontUrl: "./soundfont/",
+//     instrument: "acoustic_grand_piano",
+//     onprogress: function(state, progress) {
+//       console.log(state, progress);
+//     },
+//     onsuccess: function() {
+//       var delay = 0; // play one note every quarter second
+//       var note = 50; // the MIDI note
+//       var velocity = 127; // how hard the note hits
+//       // play the note
+//       MIDI.setVolume(0, 127);
+//       MIDI.noteOn(0, note, velocity, delay);
+//       MIDI.noteOff(0, note, delay + 0.75);
+//     }
+//   });
+// };
+// </script>
 
 </body>
 </html>
