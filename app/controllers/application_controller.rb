@@ -59,4 +59,26 @@ class ApplicationController < ActionController::Base
       @tones_array = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"].reverse#reverse as table in view is built from top down
   end
 
+  def get_octave_and_tone_from_pitch(pitch)
+    if pitch.count('#')>0
+      tone = pitch[0..1]
+      octave = pitch[2..-1]
+    else
+      tone = pitch[0]
+      octave = pitch[1..-1]
+    end
+    return {"tone": tone, "octave": octave} 
+  end
+
+  def convert_notes_to_tones_and_octaves(notes_j)
+    new_notes_j=notes_j
+
+    notes_j.each_with_index do |note_j,index|
+      puts note_j
+      tone_and_octave=get_octave_and_tone_from_pitch(note_j["pitch"])
+      new_notes_j[index][:tone]=tone_and_octave[:tone]
+      new_notes_j[index][:octave]=tone_and_octave[:octave]
+    end
+    return new_notes_j
+  end
 end
