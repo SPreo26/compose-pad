@@ -41,7 +41,8 @@
   app.controller("noteFilesCtrl", function($scope, $http) {
 
     $scope.setup = function() {
-      $http.get("/api/v1/note_files.json").then(function(response) {
+      var userId=document.body.attributes.userid;
+      $http.get("/api/v1/note_files.json?user_id="+userId).then(function(response) {
         $scope.noteFiles = response.data;
         $scope.deselectAllFiles($scope.noteFiles)
           console.log($scope.noteFiles)

@@ -41,7 +41,7 @@ function playFile() {
     var date = new Date();
     var startTime = date.getTime();
     var timeIncrement = 250;
-    var delay=timeIncrement/1000-50/1000;
+    var delay=.500;
     var note_index = 0
 
     for(i=0;i<workspaceData.divisions.length;i++){

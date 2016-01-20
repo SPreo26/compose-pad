@@ -47,9 +47,9 @@ class ApplicationController < ActionController::Base
       @max_measure = 2
       @beats_per_measure = 4
       @divisions_per_beat = 4
-      @max_octave = 4
-      @min_octave = 3
-      @max_tone = "B"
+      @max_octave = 6
+      @min_octave = 4
+      @max_tone = "D"
       @min_tone = "C"
       @tones_array = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"].reverse#reverse as table in view is built from top down
   end

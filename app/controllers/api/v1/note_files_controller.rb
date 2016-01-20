@@ -19,11 +19,11 @@ class Api::V1::NoteFilesController < ApplicationController
   end
 
   def rename
-    if true #current_user
-        user_id = 1#current_user.id
-        file_id = params[:id]
-        name = params[:name]
-        file = NoteFile.find_by(id: file_id, user_id: user_id)      
+    if current_user
+      user_id = current_user.id
+      file_id = params[:id]
+      name = params[:name]
+      file = NoteFile.find_by(id: file_id, user_id: user_id)      
       if file
         file.name=name
         if file.valid?
@@ -45,11 +45,11 @@ class Api::V1::NoteFilesController < ApplicationController
   end
 
   def delete_files
-    if true#current_user
-      user_id = 1#current_user.id
+    if current_user 
+      user_id = current_user.id
       files = NoteFile.where(id: params[:file_ids], user_id: user_id)
       if files
-        notes = LoadedNote.where(file_id: params[:file_ids])
+        notes = LoadedNote.where(note_file_id: params[:file_ids])
           if notes
             notes.destroy_all
           end
@@ -64,16 +64,19 @@ class Api::V1::NoteFilesController < ApplicationController
   end
 
   def open
-    if true#current_user
-      user_id=1#current_user.id
+    if current_user 
+      user_id = current_user.id
       files = NoteFile.where(user_id: user_id, file_open: true)
       if files
         workspace_data={}
         files_j=[]
 
         files.each do |file|
+
+          notes_j=LoadedNote.get_json_no_time_duplicates(file)
+          notes_j=split_tone_and_octave_plus_convert_start_index(notes_j)
+
           file_j=file.as_json
-          notes_j=split_tone_and_octave_plus_convert_start_index(file.loaded_notes.order(:start_index).as_json)
           file_j["notes"]=notes_j
           files_j<<file_j
         end
