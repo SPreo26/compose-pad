@@ -76,7 +76,8 @@ body {
     display: table;
     width: 100%;
     height: 100%;
-    background: #3104B4;
+    background: #282828;
+    /*#3104B4*/
 }
 
 .cell-for-centering {

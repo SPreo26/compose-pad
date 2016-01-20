@@ -1,6 +1,11 @@
 
-body h2, body form, body a {
+body > h2, body > form, body > a {
   margin-left: 10px;
+  color: #666666;
+}
+
+body > form{
+    margin-bottom: 10px;
 }
 
 /*flash*/

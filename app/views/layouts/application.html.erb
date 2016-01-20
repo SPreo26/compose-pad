@@ -22,10 +22,7 @@
  
   <!-- End MIDI js -->
 </head>
-<body style="background-color:#222;" 
-  <% if current_user %>
-    userid=<%= current_user.id %>>
-  <% end %>
+<body style="background-color:#222">
   <div class="flash-messages">
     <%flash.each do |name, message| %>
       <% if flash[:alert].present? %>
@@ -55,7 +52,7 @@
           </a>
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <div class="collapse navbar-collapse" id="navbar-collapse-1">
         <ul class="nav navbar-nav ">
           <li class="dropdown">
             <a href="#" class="dropdown-toggle navbar-item-match-tabs" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">File<span class="caret"></span></a>
@@ -134,7 +131,7 @@
   </nav>
 
 <!-- Full Page Image Background Carousel Header -->
-// <script>
+ <script>
 // window.onload = function () {
 //   wow();
 //   MIDI.loadPlugin({
