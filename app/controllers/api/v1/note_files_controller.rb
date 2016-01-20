@@ -73,29 +73,12 @@ class Api::V1::NoteFilesController < ApplicationController
 
         files.each do |file|
           file_j=file.as_json
-          notes_j=convert_notes_to_tones_and_octaves(file.loaded_notes.as_json)
+          notes_j=split_tone_and_octave_plus_convert_start_index(file.loaded_notes.order(:start_index).as_json)
           file_j["notes"]=notes_j
           files_j<<file_j
         end
         workspace_data["files"]=files_j
-        get_workspace_constants#get all the @instance variables called on below
-        workspace_data["divisions"]=[]
-
-        1.upto(@max_measure) do |measure|
-          1.upto(@beats_per_measure) do |beat|
-            1.upto(@divisions_per_beat) do |division|
-              workspace_data["divisions"]<<"#{measure}.#{beat}.#{division}"
-            end
-          end
-        end
-        workspace_data["pitches_in_workspace"]=[]
-        
-        @max_octave.downto(@min_octave) do |octave|
-          @tones_array.each_with_index do |tone, tone_index|
-            workspace_data["pitches_in_workspace"]<<"#{tone}#{octave}"
-          end
-        end
-        workspace_data["octave_tones"]=@tones_array.reverse
+        workspace_data=get_workspace_matrix_data(workspace_data)
         render json: workspace_data
       else
         render json: {message: "No files open!"}, status: 404
@@ -103,5 +86,29 @@ class Api::V1::NoteFilesController < ApplicationController
     else
       render json: {message: "Must be signed in!"}, status: 401
     end
+  end
+
+  private
+
+  def get_workspace_matrix_data(workspace_data)
+    get_workspace_constants#get all the @instance variables called on below
+      workspace_data["divisions"]=[]
+
+      1.upto(@max_measure) do |measure|
+        1.upto(@beats_per_measure) do |beat|
+          1.upto(@divisions_per_beat) do |division|
+            workspace_data["divisions"]<<"#{measure}.#{beat}.#{division}"
+          end
+        end
+      end
+      workspace_data["pitches_in_workspace"]=[]
+      
+      @max_octave.downto(@min_octave) do |octave|
+        @tones_array.each_with_index do |tone, tone_index|
+          workspace_data["pitches_in_workspace"]<<"#{tone}#{octave}"
+        end
+      end
+      workspace_data["octave_tones"]=@tones_array.reverse
+      return workspace_data
   end
 end
