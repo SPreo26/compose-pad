@@ -22,7 +22,10 @@
  
   <!-- End MIDI js -->
 </head>
-<body style="background-color:#222;">
+<body style="background-color:#222;" 
+  <% if current_user %>
+    userid=<%= current_user.id %>>
+  <% end %>
   <div class="flash-messages">
     <%flash.each do |name, message| %>
       <% if flash[:alert].present? %>
