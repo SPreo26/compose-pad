@@ -22,7 +22,10 @@ class NoteFilesController < ApplicationController
   end
 
   def index
-      @files = NoteFile.where(user_id: current_user).order(name: :asc)
+      @files = NoteFile.where(user_id: current_user.id).order(name: :asc)
+      if @files.empty?
+        redirect_to "/note_files/new"
+      end
   end
 
   def open

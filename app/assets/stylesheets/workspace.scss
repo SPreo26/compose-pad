@@ -2,11 +2,23 @@
   text-align:center;
 }
 .play-control-button{
-  position: absolute;
-  bottom: 4px;
+  position: fixed;
+  bottom: 10px;
 }
 
 .play-control-button-center{
   display: inline-block;
 }
 
+/*#nav-bar-collapse-1 {
+  overflow-y: scroll;
+}
+
+.tab-content{
+   position: relative;
+}*/
+
+/*.tab-pane{
+   overflow:scroll;
+   height: 560px;
+}*/
