@@ -57,12 +57,16 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle navbar-item-match-tabs" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">File<span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-              <li> 
-                <%= link_to "New", '/note_files/new' %>
-              </li>
-              <li> 
-                <%= link_to "My Files...", '/my_files' %> 
-              </li>
+              <% if current_user %>
+                <li> 
+                  <%= link_to "New", '/note_files/new' %>
+                </li>
+                <li> 
+                  <%= link_to "My Files...", '/my_files' %> 
+                </li>
+              <% else %>
+                <%= render "/note_files/file_menu_top_when_logged_out" %>
+              <% end %>
               <% if current_user && @action_is_workspace %>
                 <%= render "/note_files/file_menu_when_workspace_shown"%>
               <% elsif current_user && NoteFile.find_by({user_id:current_user.id, file_open: true}) %>
