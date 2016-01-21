@@ -60,17 +60,24 @@ window.addEventListener("beforeunload", function (e) {
     var parentPaddingTop = parseFloat(getComputedStyle(parent).paddingTop);
     var elemTop = $("\#"+id).position().top;
 
-    if ( elemTop == parentPaddingTop){
-      file_line.className += " file-top";
-    }
-
     var elementHeight = $("\#"+id).height()
     var elementBottom = parentPaddingTop + elemTop + elementHeight;
     var parentPaddingBottom = parseFloat(getComputedStyle(parent).paddingBottom);
     var parentBottom =  $("\#"+parentId).height() + parentPaddingBottom + parentPaddingTop;
 
-    if (parentBottom - elementBottom < elementHeight || fileNum == numFiles) {
+    if ((parentBottom - elementBottom < elementHeight || fileNum == numFiles)&&!(elemTop == parentPaddingTop))
+    {
       file_line.className += " file-bottom";
+    }
+    else if
+      (!(parentBottom - elementBottom < elementHeight || fileNum == numFiles)&&(elemTop == parentPaddingTop))
+    {
+      file_line.className += " file-top";
+    }
+    else if
+      ((parentBottom - elementBottom < elementHeight || fileNum == numFiles)&&( elemTop == parentPaddingTop))
+    {   
+      file_line.className += " file-top-bottom";
     }
   }
 
