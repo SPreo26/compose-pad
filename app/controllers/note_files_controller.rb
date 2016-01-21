@@ -24,14 +24,20 @@ class NoteFilesController < ApplicationController
   def index
       @files = NoteFile.where(user_id: current_user.id).order(name: :asc)
       if @files.empty?
+        flash[:success]="You don't have any files, please create one!"
         redirect_to "/note_files/new"
       end
   end
 
   def open
-    files = NoteFile.where(id:params[:files].keys)
-    files.update_all(file_open:true)
-    redirect_to "/workspace"
+    if params[:files]
+      files = NoteFile.where(id:params[:files].keys)
+      files.update_all(file_open:true)
+      redirect_to "/workspace"
+    else
+      flash.now[:danger]="No files selected!"
+      redirect_to "/my_files"
+    end
   end
 
   def workspace
