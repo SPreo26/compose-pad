@@ -1,25 +1,25 @@
 <div class = "table-for-centering">
-<div class = "cell-for-centering" >
-  <div class="panel panel-primary my-panel create-panel">
-      <div class="panel-heading">
-        <div class="my-panel-title">
-          Enter a file name:
+  <div class = "cell-for-centering" >
+    <div class="panel panel-primary my-panel create-panel">
+        <div class="panel-heading">
+          <div class="my-panel-title">
+            Enter a file name:
+          </div>
         </div>
-      </div>
-      <div class="panel-body my-panel-body create-panel-body">
-        <%= form_tag "/note_files/", method: :post, id: "file-create-form" do %>
-          <%= text_area_tag :name, "New tune", maxlength: 30, class: "form-control text-area-small", onclick: "eraseText()" %>
-          <br>
-        <% end %>
-      </div>
-      <div class="panel-footer create-panel-foot">
-        <div class="btn btn-primary create-button-left" align="center" onclick="window.location='/'">
-          Cancel
+        <div class="panel-body my-panel-body create-panel-body">
+          <%= form_tag "/note_files/", method: :post, id: "file-create-form" do %>
+            <%= text_area_tag :name, "New tune", maxlength: 30, class: "form-control text-area-small", onclick: "eraseText()" %>
+            <br>
+          <% end %>
         </div>
-        <div class="btn btn-primary create-button-right" align="right" onclick="createFile()">
-          Create!
-        </div>
-      </div>          
+        <div class="panel-footer create-panel-foot">
+          <div class="btn btn-primary create-button-left" align="center" onclick="window.location='/'">
+            Cancel
+          </div>
+          <div class="btn btn-primary create-button-right" align="right" onclick="createFile()">
+            Create!
+          </div>
+        </div>          
+    </div>
   </div>
-</div>
 </div>
