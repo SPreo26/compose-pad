@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   
-  devise_for :users, controllers: {sessions: "users/sessions"}
+  devise_for :users, controllers: {
+    # :sign_in => 'signin',
+    # :sign_out => 'signout',
+    # :sign_up => 'signup',   
+    sessions: "users/sessions"}
 
   devise_scope :user do
     root to: 'devise/sessions#new'
