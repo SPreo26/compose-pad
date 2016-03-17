@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-remote: ruby '2.2.4'
+ruby '2.2.4'
 
 gem 'dotenv-rails'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
