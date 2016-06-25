@@ -1,6 +1,8 @@
 (function() {
   "use strict";
 
-  angular.module("app", []);
+  angular.module("appNoteFiles", []);
+
+  angular.module("appWorkspace", []);
 
 }());
