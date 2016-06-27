@@ -1,8 +1,6 @@
 (function() {
   "use strict";
 
-  angular.module("appNoteFiles", []);
-
-  angular.module("appWorkspace", []);
+  angular.module("app", ["ngAnimate"]);
 
 }());
