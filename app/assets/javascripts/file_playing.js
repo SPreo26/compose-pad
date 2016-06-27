@@ -24,6 +24,21 @@ window.onload = function() {
   }
 }
 
+function loadMidi()
+  {
+    MIDI.loadPlugin({
+        soundfontUrl: "./soundfont/",
+        instrument: "acoustic_grand_piano",
+          onprogress: function(state, progress) {
+            console.log(state, progress);
+          },
+          onsuccess: function() {
+            midi_loaded=true;
+            console.log("Midi loaded")
+          }
+        });
+  }
+
 function findFileById(workspaceData,id) {
   for (i=0;i<workspaceData.files.length;i++){
     if (workspaceData.files[i].id==id){

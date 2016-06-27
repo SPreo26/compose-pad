@@ -22,7 +22,8 @@
  
   <!-- End MIDI js -->
 </head>
-<body style="background-color:#222">
+<body style="background-color:#222"
+ng-app="app">
   <div class="flash-messages">
     <%flash.each do |name, message| %>
       <% if !message.empty? %>
@@ -51,7 +52,8 @@
           </a>
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="navbar-collapse-1">
+      <div class="collapse navbar-collapse" id="navbar-collapse-1"
+      >
         <ul class="nav navbar-nav ">
           <li class="dropdown">
             <a href="#" class="dropdown-toggle navbar-item-match-tabs" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">File<i class="fa fa-bars"></i></a>
@@ -107,7 +109,8 @@
           <% end %>
         </ul>
         <% if @action_is_workspace %>
-          <ul id = "myTab" class = "nav nav-tabs">
+          <ul id = "myTab" class = "nav nav-tabs"
+          >
           <% @opened_files.each_with_index do |opened_file, index| %>            
             <li <%= "class = active" if index==0%> >
               <a href = "#file<%= index %>" data-toggle = "tab" class="navbar-item-tabs">
@@ -116,7 +119,9 @@
             </li>
           <% end %>
           </ul>
-          <div id = "myTabContent" class = "tab-content">
+          <div id = "myTabContent" class = "tab-content"
+          ng-controller = "workspaceCtrl"
+          ng-init="setup()">
             <% @opened_files.each_with_index do |opened_file, index| %>
               <% if index == 0 %>
                 <div class = "tab-pane in active" id = "file<%= index %>">
