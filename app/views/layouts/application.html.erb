@@ -122,23 +122,15 @@ ng-app="app">
           <div id = "myTabContent" class = "tab-content"
           ng-controller = "workspaceCtrl"
           ng-init="setup()">
-            <% @opened_files.each_with_index do |opened_file, index| %>
-              <% if index == 0 %>
-                <div class = "tab-pane in active" id = "file<%= index %>">
-              <% else %>
-                <div class = "tab-pane" id = "file<%= index %>">
-              <% end %>
-              <% @opened_file = opened_file %>
-              <%# need to convert block var to inst var to pass to partial %>
-              <%= render "/note_files/workspace_file", {opened_file: @opened_file, index: index}%>
-              </div>
-            <% end %>
-          </div>
-        <% end %>            
-        <!-- /.navbar-collapse -->
-      </div>
-      <!-- /.container -->
-    </div>
+            <div ng-repeat = "openFile in openFiles track by $index"
+            ng-class = " $index==0? 'tab-pane in active' : 'tab-pane'"
+            id = "{{'file'+$index}}">
+              <%= render "/note_files/workspace_file", {index: 0}%>
+            </div>
+          </div> <!-- /#myTabContent -->
+        <% end %> <!-- end if action_is_workspace? -->         
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container -->
   </nav>
 
 <!-- Full Page Image Background Carousel Header -->

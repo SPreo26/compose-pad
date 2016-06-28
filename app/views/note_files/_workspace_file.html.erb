@@ -1,4 +1,4 @@
-<%= form_tag "/note_files/#{@opened_file.id}", id: "note-file-form#{index}", method: :patch do %>
+<%= form_tag "/note_files/#{@opened_files.first.id}", id: "note-file-form#{index}", method: :patch do %>
 <table class="worktable">
   <tr>
     <td width="2%"></td>
@@ -35,7 +35,7 @@
             <% 1.upto(@divisions_per_beat) do |division_index| %>    
               <td>
                 <% @start_index = "#{measure_index}.#{beat_index}.#{division_index}" %>
-                <% if LoadedNote.find_by(note_file_id:@opened_file.id, pitch: @pitch, start_index: @start_index) %> 
+                <% if LoadedNote.find_by(note_file_id:@opened_files.first.id, pitch: @pitch, start_index: @start_index) %> 
                   <% @is_checked = true %>
                 <% else %>     
                   <% @is_checked = false %>
