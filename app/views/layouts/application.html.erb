@@ -109,25 +109,17 @@ ng-app="app">
           <% end %>
         </ul>
         <% if @action_is_workspace %>
-          <ul id = "myTab" class = "nav nav-tabs"
-          >
-          <% @opened_files.each_with_index do |opened_file, index| %>            
-            <li <%= "class = active" if index==0%> >
-              <a href = "#file<%= index %>" data-toggle = "tab" class="navbar-item-tabs">
-                 <%= "#{opened_file.name}" %>
-              </a>
-            </li>
-          <% end %>
-          </ul>
-          <div id = "myTabContent" class = "tab-content"
-          ng-controller = "workspaceCtrl"
-          ng-init="setup()">
-            <div ng-repeat = "openFile in openFiles track by $index"
-            ng-class = " $index==0? 'tab-pane in active' : 'tab-pane'"
-            id = "{{'file'+$index}}">
-              <%= render "/note_files/workspace_file", {index: 0}%>
-            </div>
-          </div> <!-- /#myTabContent -->
+          
+          <div ng-controller = "workspaceCtrl" ng-init="setup()" >
+            <uib-tabset active="active">
+              <uib-tab index="$index + 1" ng-repeat="openFile in openFiles track by $index" heading="{{openFile.name}}" disable="tab.disabled">
+                <div ng-class = " $index==0? 'tab-pane in active' : 'tab-pane'"
+                id = "{{'file'+$index}}">
+                  <%= render "/note_files/workspace_file", {index: 0}%>
+                </div>
+              </uib-tab>
+            </uib-tabset>
+          </div>
         <% end %> <!-- end if action_is_workspace? -->         
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container -->
