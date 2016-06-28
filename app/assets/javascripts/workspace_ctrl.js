@@ -9,7 +9,7 @@
       $http.get("/api/v1/note_files/open").then(function(response) {
         $scope.workspaceData = response.data;
         console.log($scope.workspaceData)
-        
+        $scope.openFiles = $scope.workspaceData.files
         loadMidi();
 
         },
