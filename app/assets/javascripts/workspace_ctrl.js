@@ -8,8 +8,8 @@
       var userId=document.body.attributes.userid;
       $http.get("/api/v1/note_files/open").then(function(response) {
         $scope.workspaceData = response.data;
-        console.log($scope.workspaceData)
-        $scope.openFiles = $scope.workspaceData.files
+        $scope.files = $scope.workspaceData.files;
+        $scope.openFiles = $scope.files.filter($scope.ReturnOpenFiles)
         loadMidi();
 
         },
@@ -17,6 +17,15 @@
           console.log(error.data);
         }
       )
+    }
+
+    $scope.ReturnOpenFiles = function(files){
+      if (files.file_open){
+        return true
+      }
+      else {
+        return false
+      }
     }
 
     window.$scope = $scope;
