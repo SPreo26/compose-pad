@@ -50,7 +50,7 @@ function findFileById(workspaceData,id) {
 function playFile() {
   if (midi_loaded==true) {
     var form = getActiveForm();
-    file_id = form.action.slice(form.action.lastIndexOf("/")+1);
+    file_id = form.attributes.action.value.slice(form.attributes.action.value.lastIndexOf("/")+1);
     var file = findFileById(workspaceData,file_id);
 
     var date = new Date();

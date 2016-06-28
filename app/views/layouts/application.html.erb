@@ -109,17 +109,7 @@ ng-app="app">
           <% end %>
         </ul>
         <% if @action_is_workspace %>
-          
-          <div ng-controller = "workspaceCtrl" ng-init="setup()" >
-            <uib-tabset active="active">
-              <uib-tab index="$index + 1" ng-repeat="openFile in openFiles track by $index" heading="{{openFile.name}}" disable="tab.disabled">
-                <div ng-class = " $index==0? 'tab-pane in active' : 'tab-pane'"
-                id = "{{'file'+$index}}">
-                  <%= render "/note_files/workspace_file", {index: 0}%>
-                </div>
-              </uib-tab>
-            </uib-tabset>
-          </div>
+          <%= render "/note_files/workspace_tabs" %>
         <% end %> <!-- end if action_is_workspace? -->         
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container -->
