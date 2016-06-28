@@ -11,9 +11,7 @@
   }
 
   function getActiveForm() {
-    var activePaneUrl = document.getElementsByClassName("active")[0].getElementsByTagName("a")[0].href;
-
-    var activePaneId = activePaneUrl.substring(activePaneUrl.indexOf("#")+1,activePaneUrl.length);
+    var activePaneId = document.getElementsByClassName("tab-pane in active")[0].id;
 
     var form = document.getElementById(activePaneId).getElementsByTagName("form")[0];
 

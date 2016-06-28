@@ -10,6 +10,7 @@
         $scope.workspaceData = response.data;
         $scope.files = $scope.workspaceData.files;
         $scope.openFiles = $scope.files.filter($scope.ReturnOpenFiles)
+        
         loadMidi();
 
         },

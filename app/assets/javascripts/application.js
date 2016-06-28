@@ -6,6 +6,7 @@
 //= require theme/bootstrap
 //= require angular
 //= require angular-animate
+//= require ui-bootstrap-tpls-1.3.3.min
 //= require app
 //= require_tree .
 
