@@ -11,9 +11,9 @@
   }
 
   function getActiveForm() {
-    var activePaneId = document.getElementsByClassName("tab-pane in active")[0].id;
+    var activePane = document.getElementsByClassName("tab-pane  active")[0];
 
-    var form = document.getElementById(activePaneId).getElementsByTagName("form")[0];
-
+    var form = activePane.getElementsByTagName("ng-form")[0];
+    
     return form;
   }
