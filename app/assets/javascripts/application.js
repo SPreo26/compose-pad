@@ -4,8 +4,8 @@
 //= require theme/jquery
 //= require jquery_ujs
 //= require theme/bootstrap
-//= require angular
-//= require angular-animate
+//= require angular.min
+//= require angular-animate.min
 //= require ui-bootstrap-tpls-1.3.3.min
 //= require app
 //= require_tree .
