@@ -40,18 +40,19 @@ class ApplicationController < ActionController::Base
   private
 
   def sign_in_message
-   "Please sign in before you proceed!"
+    "Please sign in before you proceed!"
   end
 
   def get_workspace_constants
-      @max_measure = 2
-      @beats_per_measure = 4
-      @divisions_per_beat = 4
-      @max_octave = 6
-      @min_octave = 4
-      @max_tone = "D"
-      @min_tone = "E"
-      @tones_array = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"].reverse#reverse as table in view is built from top down
+    @max_measure = 2
+    @beats_per_measure = 4
+    @divisions_per_beat = 4
+    @max_octave = 6
+    @min_octave = 4
+    @max_tone = "D"
+    @min_tone = "E"
+    @tones_array = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"].reverse#reverse as table in view is built from top down
+    return {maxMeasure: @max_measure, beatsPerMeasure: @beats_per_measure, divisionsPerBeat: @divisions_per_beat}
   end
 
   def get_octave_and_tone_from_pitch(pitch)

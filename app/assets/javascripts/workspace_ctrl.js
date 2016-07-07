@@ -10,7 +10,11 @@
         $scope.workspaceData = response.data;
         $scope.files = $scope.workspaceData.files;
         $scope.openFiles = $scope.files.filter($scope.ReturnOpenFiles)
-        
+        $scope.allBeatCells = $scope.workspaceData.beats;
+        $scope.allDivisions = $scope.workspaceData.divisions;
+        $scope.pitchesInWorkspace = $scope.workspaceData.pitches_in_workspace;
+        $scope.timeConstants=$scope.workspaceData.time_constants;
+
         loadMidi();
 
         },
