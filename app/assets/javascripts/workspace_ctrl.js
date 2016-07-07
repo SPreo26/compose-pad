@@ -9,7 +9,7 @@
       $http.get("/api/v1/note_files/open").then(function(response) {
         $scope.workspaceData = response.data;
         $scope.files = $scope.workspaceData.files;
-        $scope.openFiles = $scope.files.filter($scope.ReturnOpenFiles)
+        $scope.openFiles = $scope.files.filter($scope.returnOpenFiles)
         $scope.allBeatCells = $scope.workspaceData.beats;
         $scope.allDivisions = $scope.workspaceData.divisions;
         $scope.pitchesInWorkspace = $scope.workspaceData.pitches_in_workspace;
@@ -24,13 +24,24 @@
       )
     }
 
-    $scope.ReturnOpenFiles = function(files){
+    $scope.returnOpenFiles = function(files){
       if (files.file_open){
         return true
       }
       else {
         return false
       }
+    }
+
+    $scope.thereIsNoteAtDivisionAndPitch = function(file,division,pitch){
+      var notes = file.notes;
+      var i;
+      for (i=0;i<notes.length; i++){
+        if (notes[i].start_index == division && notes[i].pitch == pitch) {
+          return true
+        }
+      }
+      return false
     }
 
     window.$scope = $scope;
