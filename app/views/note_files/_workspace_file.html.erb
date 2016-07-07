@@ -1,44 +1,20 @@
-<ng-form action="/note_files/{{openFile.id}}" id="note-file-form{{$index}}" method="patch">
+<ng-form action="/note_files/{{file.id}}" id="note-file-form{{$index}}" method="patch">
   <table class="worktable">
     <tr>
       <td width="2%"></td>
       <td ng-repeat="beat in allBeatCells track by $index" ng-style="{'width':'2%'}">
         {{beat}}
-        <!-- label printed on beat -->
+        <!-- allBeatCells is an array made such that label printed on beat only, otherwise an empty string is printed-->
       </td>
     </tr>
-    <% @max_octave.downto(@min_octave) do |octave| %>
-      <% @tones_array.each_with_index do |tone, tone_index| %>
-
-        <% if octave == @min_octave && tone_index>@tones_array.index(@min_tone) %>
-          <% break %>
-          <%# @tones_array is in reverse ["B".."C"] so break if tone_index > min; 
-          eg: stop making pitch rows the moment octave == @min_octave, tone is F, and @min_tone is F# %>
-        <% elsif octave == @max_octave && tone_index<@tones_array.index(@max_tone)%> 
-          <% next %>
-          <%# similar logic to above break statement, but this time: continue down to next tone, until @max_tone is reached;
-          eg: if octave==@max_octave, tone is G is @max_tone is E, the next statement will keep skipping until E is reached%>
-        <% end %>
-        <% @pitch = "#{tone}#{octave}"%>
-        <tr>
-          <td><%= @pitch %></td>
-          <% 1.upto(@max_measure) do |measure_index| %>
-            <% 1.upto(@beats_per_measure) do |beat_index| %>
-              <% 1.upto(@divisions_per_beat) do |division_index| %>    
-                <td>
-                  <% @start_index = "#{measure_index}.#{beat_index}.#{division_index}" %>
-                  <% if LoadedNote.find_by(note_file_id:@opened_files.first.id, pitch: @pitch, start_index: @start_index) %> 
-                    <% @is_checked = true %>
-                  <% else %>     
-                    <% @is_checked = false %>
-                  <% end %>
-                  <%= check_box_tag "file[notes][#{@pitch}][]", "#{@start_index}", @is_checked %>
-                </td>
-              <% end %>
-            <% end %>
-          <% end %>
-        </tr>
-      <% end %>
-    <% end %>
+    <tr ng-repeat="pitch in pitchesInWorkspace">
+      <td> {{pitch}} </td>    
+      <td ng-repeat="division in allDivisions">
+        <input type="checkbox"
+        name="file[notes][{{pitch}}][]"
+        ng-true-value="{{division}}" 
+        ng-checked="thereIsNoteAtDivisionAndPitch(file,division,pitch)">
+      </td>
+    </tr>
   </table>
 </ng-form>
