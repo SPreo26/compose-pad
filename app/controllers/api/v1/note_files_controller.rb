@@ -94,24 +94,37 @@ class Api::V1::NoteFilesController < ApplicationController
   private
 
   def get_workspace_matrix_data(workspace_data)
-    get_workspace_constants#get all the @instance variables called on below
-      workspace_data["divisions"]=[]
+    time_constants=get_workspace_constants#initialize all the @instance variables called on below plus the time constants returned in an array
+    workspace_data["time_constants"]=time_constants
+    workspace_data["divisions"]=[]
+    workspace_data["beats"]=[]
 
-      1.upto(@max_measure) do |measure|
-        1.upto(@beats_per_measure) do |beat|
-          1.upto(@divisions_per_beat) do |division|
-            workspace_data["divisions"]<<"#{measure}.#{beat}.#{division}"
+    1.upto(@max_measure) do |measure|
+      1.upto(@beats_per_measure) do |beat|
+        1.upto(@divisions_per_beat) do |division|
+          workspace_data["divisions"]<<"#{measure}.#{beat}.#{division}"
+          if division == 1
+            workspace_data["beats"]<<"#{measure}.#{beat}"
+          else
+            workspace_data["beats"]<<""
           end
+            #workspace_data["beats"] will end up looking something like ["1.1","","","","1.2"] - in this example there are 4 divisions per beat; the empty strings are place-holders which make it easier to populate the html table with beat markers
         end
       end
-      workspace_data["pitches_in_workspace"]=[]
-      
-      @max_octave.downto(@min_octave) do |octave|
-        @tones_array.each_with_index do |tone, tone_index|
-          workspace_data["pitches_in_workspace"]<<"#{tone}#{octave}"
+    end
+    workspace_data["pitches_in_workspace"]=[]
+    
+    @max_octave.downto(@min_octave) do |octave|
+      @tones_array.each_with_index do |tone, tone_index|
+        if octave == @min_octave && tone_index>@tones_array.index(@min_tone)
+          break
+        elsif octave == @max_octave && tone_index<@tones_array.index(@max_tone) 
+          next
         end
+        workspace_data["pitches_in_workspace"]<<"#{tone}#{octave}"
       end
-      workspace_data["octave_tones"]=@tones_array.reverse
-      return workspace_data
+    end
+    workspace_data["octave_tones"]=@tones_array.reverse
+    return workspace_data
   end
 end

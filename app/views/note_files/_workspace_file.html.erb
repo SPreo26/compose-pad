@@ -2,18 +2,10 @@
   <table class="worktable">
     <tr>
       <td width="2%"></td>
-      <% 1.upto(@max_measure) do |measure_index| %>
-        <% 1.upto(@beats_per_measure) do |beat_index| %>
-          <% 1.upto(@divisions_per_beat) do |div_index| %>
-            <% if div_index == 1 %>
-              <td width="<%= 2* @divisions_per_beat %>%" colspan="<%= @divisions_per_beat %>">
-                <%= "#{measure_index}.#{beat_index}" %>
-                <%#label only printed on beat %>
-              </td>
-            <% end %>
-          <% end %>
-        <% end %>
-      <% end %>
+      <td ng-repeat="beat in allBeatCells track by $index" ng-style="{'width':'2%'}">
+        {{beat}}
+        <!-- label printed on beat -->
+      </td>
     </tr>
     <% @max_octave.downto(@min_octave) do |octave| %>
       <% @tones_array.each_with_index do |tone, tone_index| %>
