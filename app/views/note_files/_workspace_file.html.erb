@@ -7,13 +7,12 @@
         <!-- allBeatCells is an array made such that label printed on beat only, otherwise an empty string is printed-->
       </td>
     </tr>
-    <tr ng-repeat="pitch in pitchesInWorkspace">
+    <tr ng-repeat="(pitch, divisions) in file.matrix">
       <td> {{pitch}} </td>    
-      <td ng-repeat="division in allDivisions">
+      <td ng-repeat="(division, divisionValue) in divisions">
         <input type="checkbox"
-        name="file[notes][{{pitch}}][]"
-        ng-true-value="{{division}}" 
-        ng-checked="thereIsNoteAtDivisionAndPitch(file,division,pitch)">
+        ng-model="divisions[division]"
+        >
       </td>
     </tr>
   </table>

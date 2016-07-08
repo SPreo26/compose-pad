@@ -2,7 +2,7 @@
   <uib-tabset active="active">
     <uib-tab 
     ng-repeat="file in files track by $index" 
-    heading="{{file.file_open.toString()}}"
+    heading="{{file.name}}"
     ng-if="file.file_open">
       <div id = "{{'file'+$index}}">
         <%= render "/note_files/workspace_file"%>
