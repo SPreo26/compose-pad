@@ -14,7 +14,7 @@
         $scope.allDivisions = $scope.workspaceData.divisions;
         $scope.pitchesInWorkspace = $scope.workspaceData.pitches_in_workspace;
         $scope.timeConstants=$scope.workspaceData.time_constants;
-        $scope.loadNotesIntoMatrixModel
+        $scope.loadNotesIntoMatrixModel();
 
         loadMidi();
 
@@ -34,14 +34,34 @@
     //   }
     // }
     $scope.loadNotesIntoMatrixModel = function() {
+      var files = $scope.files;
+      var pitches = $scope.pitchesInWorkspace;
+      var divisions = $scope.allDivisions;
+      var i;
+      for (i=0;i<files.length;i++){
+
+        var file = files[i];
+        file["matrix"]={};
+        
+        var j;
+        for (j=0;j<pitches.length;j++){
+          var pitch = pitches[j];
+          file.matrix[pitch]={};
+
+          var k;
+          for (k=0;k<divisions.length;k++){
+            var division = divisions[k];
+            file.matrix[pitch][division]=$scope.thereIsNoteAtDivisionAndPitch(file,pitch,division)
+          }
+        }        
+      }
     };
 
     $scope.closeFile = function(file){
       file.file_open = false;
-      return;
     };
 
-    $scope.thereIsNoteAtDivisionAndPitch = function(file,division,pitch){
+    $scope.thereIsNoteAtDivisionAndPitch = function(file,pitch,division){
       var notes = file.notes;
       var i;
       for (i=0;i<notes.length; i++){
@@ -52,6 +72,9 @@
       return false;
     };
 
+    // $scope.displayIt =function(file, division,pitch){
+    //   console.log($scope.files[0].matrix[pitch]);
+    // }
     window.$scope = $scope;
   
     });
