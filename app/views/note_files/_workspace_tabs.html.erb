@@ -1,6 +1,9 @@
 <div ng-controller = "workspaceCtrl" ng-init="setup()">
   <uib-tabset active="active">
-    <uib-tab ng-repeat="file in openFiles track by $index" heading="{{file.name}}">
+    <uib-tab 
+    ng-repeat="file in files track by $index" 
+    heading="{{file.file_open.toString()}}"
+    ng-if="file.file_open">
       <div id = "{{'file'+$index}}">
         <%= render "/note_files/workspace_file"%>
       </div>
