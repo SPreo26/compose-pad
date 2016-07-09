@@ -2,13 +2,31 @@
   text-align:center;
 }
 .play-control-button{
-  position: fixed;
-  top: 540px;
+  /*position: fixed;
+  top: 540px;*/
+  margin: 10px 5px;
 }
 
 .play-control-button-center{
   display: inline-block;
 }
+
+/*.matrix-labels-container{
+}*/
+
+.division-table, .matrix-table {
+  width: 100%;
+} 
+
+.matrix-table-container{
+  overflow: scroll;
+}
+
+/*.tab-pane{
+}*/
+
+/*.matrix-labels-controls-containter {
+}*/
 
 /*#nav-bar-collapse-1 {
   overflow-y: scroll;

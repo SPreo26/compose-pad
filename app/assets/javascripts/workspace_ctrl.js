@@ -2,6 +2,10 @@
   "use strict";
   var app=angular.module("app");
   
+  app.directive('creationDirective', function() {
+    return true;
+  })
+
   app.controller("workspaceCtrl", function($scope, $http) {
 
     $scope.setup = function() {
@@ -57,10 +61,6 @@
       }
     };
 
-    $scope.closeFile = function(file){
-      file.file_open = false;
-    };
-
     $scope.thereIsNoteAtDivisionAndPitch = function(file,pitch,division){
       var notes = file.notes;
       var i;
@@ -72,9 +72,23 @@
       return false;
     };
 
-    // $scope.displayIt =function(file, division,pitch){
-    //   console.log($scope.files[0].matrix[pitch]);
+    $scope.closeFile = function(file){
+      file.file_open = false;
+    };
+
+    $scope.playFile = function(file){
+      playFile(file);
+    }
+
+    // $scope.adjustMaxHeightToWindowHeight = function(elem){
+    //   matrix_loaded = true;
+    //   adjustMaxHeightToWindowHeight(elem);
     // }
+
+    // $scope.alertMe = function(){
+    //   alert("yo");
+    // }
+
     window.$scope = $scope;
   
     });
