@@ -1,5 +1,5 @@
 <ng-form action="/note_files/{{file.id}}" id="note-file-form{{$index}}" method="patch">
-  <table class="worktable">
+  <table class="division-table">
     <tr>
       <td width="2%"></td>
       <td ng-repeat="beat in allBeatCells track by $index" ng-style="{'width':'2%'}">
@@ -7,13 +7,22 @@
         <!-- allBeatCells is an array made such that label printed on beat only, otherwise an empty string is printed-->
       </td>
     </tr>
-    <tr ng-repeat="(pitch, divisions) in file.matrix">
-      <td> {{pitch}} </td>    
-      <td ng-repeat="(division, divisionValue) in divisions">
-        <input type="checkbox"
-        ng-model="divisions[division]"
-        >
-      </td>
-    </tr>
   </table>
+  <div class="matrix-table-container">
+    <script ng-if="false">
+      //ng-if false makes script  only run once for first iteration (before this script elem is removed), then not made for any additional iterations
+      matrix_div_created = true;
+      adjustMatrixMaxHeightToWindowHeight();
+    </script>
+    <table class="matrix-table">
+      <tr ng-repeat="(pitch, divisions) in file.matrix">
+        <td width="2%"> {{pitch}} </td>    
+        <td ng-repeat="(division, divisionValue) in divisions"
+          width="2%">
+          <input type="checkbox"
+          ng-model="divisions[division]">
+        </td>
+      </tr>
+    </table>
+  </div>
 </ng-form>

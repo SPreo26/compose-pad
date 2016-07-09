@@ -1,4 +1,4 @@
-midi_loaded=false;
+var midi_loaded=false;
 
 window.onload = function() {
   if(document.URL.indexOf("workspace") > -1){
@@ -47,11 +47,8 @@ function findFileById(workspaceData,id) {
   }
 }
 
-function playFile() {
-  if (midi_loaded==true) {
-    var form = getActiveForm();
-    file_id = form.attributes.action.value.slice(form.attributes.action.value.lastIndexOf("/")+1);
-    var file = findFileById(workspaceData,file_id);
+function playFile(file) {
+  if (midi_loaded) {
 
     var date = new Date();
     var startTime = date.getTime();

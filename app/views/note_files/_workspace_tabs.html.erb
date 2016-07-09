@@ -5,7 +5,17 @@
     heading="{{file.name}}"
     ng-if="file.file_open">
       <div id = "{{'file'+$index}}">
-        <%= render "/note_files/workspace_file"%>
+        <div class="matrix-labels-controls-container">
+          <div class="matrix-divisions-container">
+            <%= render "/note_files/workspace_file" %>
+          </div>
+            <div class="play-control-container">
+              <div class="btn btn-primary play-control-button play-control-button-center"
+              ng-click="playFile(file)">
+                Play
+              </div>
+            </div>
+        </div>
       </div>
     </uib-tab>
   </uib-tabset>
