@@ -22,8 +22,8 @@
  
   <!-- End MIDI js -->
 </head>
-<body style="background-color:#222"
-ng-app="app">
+<body ng-app="app"
+style="background-color:#222">
   <div class="flash-messages">
     <%flash.each do |name, message| %>
       <% if !message.empty? %>
@@ -38,79 +38,47 @@ ng-app="app">
 <%= yield %>
 
  <!-- Navigation -->
-  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <% if @action_is_workspace %>
+  <nav ng-controller = "workspaceCtrl" 
+  ng-init="setup()"
+  class="navbar navbar-inverse navbar-fixed-top" 
+  role="navigation">
+
+  <% else %>
+  <nav class="navbar navbar-inverse navbar-fixed-top" 
+  role="navigation">
+
+  <% end %>
+
     <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand navbar-brand-match-tabs" href="/" >
-            Compose Pad
-          </a>
-      </div>
-      <!-- Collect the nav links, forms, and other content for toggling -->
+
+      <!-- navbar header -->
+      <%= render "note_files/navbar_brand" %>
+
       <div class="collapse navbar-collapse" id="navbar-collapse-1"
       >
+        <!-- left navbar -->
         <ul class="nav navbar-nav ">
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle navbar-item-match-tabs" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">File<i class="fa fa-bars"></i></a>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-              <% if current_user %>
-                <li> 
-                  <%= link_to "New", '/note_files/new' %>
-                </li>
-                <li> 
-                  <%= link_to "My Files...", '/my_files' %> 
-                </li>
-              <% else %>
-                <%= render "/note_files/file_menu_top_when_logged_out" %>
-              <% end %>
-              <% if current_user && @action_is_workspace %>
-                <%= render "/note_files/file_menu_when_workspace_shown"%>
-              <% elsif current_user && NoteFile.find_by({user_id:current_user.id, file_open: true}) %>
-                <%= render "/note_files/file_menu_when_files_open_not_shown"%>
-              <% else %>  
-                <li> 
-                  <a class = "disabled-link"> Save </a> 
-                </li>
-<!--                 <li> 
-                  <a class = "disabled-link"> Save As... </a>
-                </li> -->
-                <li> 
-                  <a class = "disabled-link"> Save All </a> 
-                </li>
-                <hr style="width: 77%; height: 0em; background: #fff; margin: 10px auto;">
-                <li> 
-                  <a class = "disabled-link"> Close </a> 
-                </li>
-<!--                 <li> 
-                  <a class = "disabled-link"> Revert File </a>
-                </li> -->
-                <li> 
-                  <a class = "disabled-link"> Close All </a> 
-                </li>
-              <% end %>            
-            </ul>
-          </li>
+          <%= render "/note_files/file_menu_dropdown" %>
           <li>
             <a class="navbar-item-match-tabs" href="https://drive.google.com/open?id=0Bxvz4oBLx9gZZUg1VTZqaGo1SEU">Quick Tutorial...</a>
           </li>
         </ul>
+
+        <!-- right navbar -->
         <ul class="nav navbar-nav navbar-right navbar-margin-right navbar-margin-bottom">
-          
           <% if current_user %>
-            <li> <%= link_to "Sign out", "/users/sign_out", method: "delete",class: "navbar-item-match-tabs" %> </li>
+            <%= render "/note_files/log_in_navbar_when_logged_in" %>
           <% else %>
-            <li> <%= link_to "Sign up", "/users/sign_up", class: "navbar-item-match-tabs" %> </li>    
-            <li> <%= link_to "Sign in", "/users/sign_in", class: "navbar-item-match-tabs" %> </li>
+            <%= render "/note_files/log_in_navbar_when_logged_out" %>
           <% end %>
         </ul>
+
+        <!-- workspace tabs -->
         <% if @action_is_workspace %>
           <%= render "/note_files/workspace_tabs" %>
-        <% end %> <!-- end if action_is_workspace? -->         
+        <% end %> 
+
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container -->
   </nav>

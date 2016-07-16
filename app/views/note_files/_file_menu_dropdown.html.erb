@@ -1,0 +1,14 @@
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle navbar-item-match-tabs" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">File<i class="fa fa-bars"></i></a>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+    <% if !current_user %>
+      <%= render "/note_files/file_menu_when_logged_out" %>
+    <% elsif @action_is_workspace %>
+      <%= render "/note_files/file_menu_when_workspace_shown"%>
+    <% elsif NoteFile.find_by({user_id:current_user.id, file_open: true}) %>
+      <%= render "/note_files/file_menu_when_files_open_not_shown" %>
+    <% else %>  
+      <%= render "file_menu_when_logged_in_no_files_open" %>
+    <% end %>            
+  </ul>
+</li>

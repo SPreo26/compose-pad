@@ -1,19 +1,25 @@
 <li> 
-  <%= link_to "Save", '#', onclick: "saveFile()" %> 
+  <%= link_to "New", '/note_files/new' %>
+</li>
+<li> 
+  <%= link_to "My Files...", '/my_files' %> 
+</li>
+<li> 
+  <a href="#" ng-click="saveFile()"> Close </a>
 </li>
 <!-- <li> 
   <%# link_to "Save As...", '#' %> 
 </li> -->
-<li> 
-  <%= link_to "Save All", '#' %> 
-</li>
+<!-- <li> 
+  <a class = "disabled-link"> Save All </a>
+</li> -->
 <hr style="width: 77%; height: 0em; background: #fff; margin: 10px auto;">
 <li>
-  <%= link_to "Close", '#', onclick: "closeFile()" %>
+  <a href="#" ng-click="closeFile()"> Close </a>
 </li>
 <!-- <li>
   <%# link_to "Revert File", '#' %>
 </li> -->
 <li>
-  <%= link_to "Close All Files", '/note_files/close_all'%>
+  <a href="#" ng-click="closeAllFiles()"> Close All Files </a>
 </li>
