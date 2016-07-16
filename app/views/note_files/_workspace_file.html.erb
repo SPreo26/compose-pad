@@ -4,7 +4,7 @@
       <td width="2%"></td>
       <td ng-repeat="beat in allBeatCells track by $index" ng-style="{'width':'2%'}">
         {{beat}}
-        <!-- allBeatCells is an array made such that label printed on beat only, otherwise an empty string is printed-->
+        <!-- allBeatCells is an array made such that label printed on beat only, otherwise an empty string is printed -->
       </td>
     </tr>
   </table>
@@ -16,7 +16,7 @@
     </script>
     <table class="matrix-table">
       <tr ng-repeat="(pitch, divisions) in file.matrix">
-        <td width="2%"> {{pitch}} </td>    
+        <td width="2%"> {{pitch}} </td>
         <td ng-repeat="(division, divisionValue) in divisions"
           width="2%">
           <input type="checkbox"

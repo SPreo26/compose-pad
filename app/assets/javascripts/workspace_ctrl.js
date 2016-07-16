@@ -2,9 +2,9 @@
   "use strict";
   var app=angular.module("app");
   
-  app.directive('creationDirective', function() {
-    return true;
-  })
+  // app.directive('creationDirective', function() {
+  //   return true;
+  // })
 
   app.controller("workspaceCtrl", function($scope, $http) {
 
@@ -72,8 +72,22 @@
       return false;
     };
 
-    $scope.closeFile = function(file){
+    $scope.saveFile = function(){
+      //var file =
+      alert("SSS");
+    };
+
+    $scope.closeFile = function(){
+      //var file =
       file.file_open = false;
+      alert("AAA");
+    };
+
+    $scope.closeAllFiles = function(){
+      var i;
+      for(i=0; i<$scope.files.length; i++){
+        $scope.files[i].file_open = false;
+      }
     };
 
     $scope.playFile = function(file){
