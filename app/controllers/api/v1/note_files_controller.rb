@@ -40,10 +40,6 @@ class Api::V1::NoteFilesController < ApplicationController
     end
   end
 
-  def save
-
-  end
-
   def delete_files
     if current_user 
       user_id = current_user.id
@@ -91,6 +87,25 @@ class Api::V1::NoteFilesController < ApplicationController
     end
   end
 
+  def save
+    note_file=NoteFile.find_by({id: params[:id], user_id: current_user.id})
+    if note_file
+      if params[:matrix]
+        new_notes=params[:matrix]
+        old_notes=LoadedNote.where( note_file_id: params[:id])
+        destroy_deleted_notes(old_notes,new_notes)
+        create_new_notes(old_notes,new_notes,note_file)     
+      else 
+        render json: {message: "matrix of notes never received by server"}, status: 404
+      end
+
+      render json: {message: "File saved."}, status: 200
+    else
+
+    render json: {message: "Note File ID #{params[:id]} not found"}, status: 404
+    end
+  end
+
   private
 
   def get_workspace_matrix_data(workspace_data)
@@ -127,4 +142,55 @@ class Api::V1::NoteFilesController < ApplicationController
     workspace_data["octave_tones"]=@tones_array.reverse
     return workspace_data
   end
+
+  def destroy_deleted_notes(old_notes,new_notes)
+
+    # p "DEST"
+    # old_notes.each do |old_note|
+      
+    #   old_note_deleted=true
+    #   #will be set to false if note with same pitch and start index is found in data sent from view
+    #   new_notes.each do |new_note|
+
+    #       if old_note[:pitch]==new_note[:pitch] && old_note[:start_index] == new_note[:start_index]
+    #         old_note_deleted=false
+    #         p "NO DELEEEETE"
+    #       end     
+    #   end
+
+    #   if old_note_deleted
+    #     old_note.destroy
+    #     p "DELEETED"
+    #   end
+    # end
+
+  end
+
+
+  def create_new_notes(old_notes,new_notes,note_file)
+
+    new_notes.each do |pitch, new_pitch_start_indeces|
+        #if pitch_okay? && start_index_okay? #add this later
+      new_pitch_start_indeces.each do |new_pitch_start_index, new_pitch_start_index_presence|
+
+        next unless new_pitch_start_index_presence
+        #if this pitch and start index combination doesn't contain a note in the new data, no note created - moved on
+        
+        new_note_added=true
+        #will be set to false if note with same pitch and start index is already found in data sent from view
+        old_notes.each do |old_note|
+          if pitch==old_note[:pitch] && new_pitch_start_index == old_note[:start_index]
+            new_note_added=false
+          end   
+        end
+
+        if new_note_added
+          LoadedNote.create({note_file_id: note_file.id, pitch: pitch, velocity: 100, start_index: new_pitch_start_index})
+        end
+
+      end
+    end
+    
+  end 
+
 end

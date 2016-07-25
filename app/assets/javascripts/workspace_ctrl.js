@@ -64,7 +64,7 @@
     $scope.thereIsNoteAtDivisionAndPitch = function(file,pitch,division){
       var notes = file.notes;
       var i;
-      for (i=0;i<notes.length; i++){
+      for (i=0;i<notes.length;i++){
         if (notes[i].start_index == division && notes[i].pitch == pitch) {
           return true;
         }
@@ -73,22 +73,58 @@
     };
 
     $scope.saveFile = function(){
-      //var file =
-      alert("SSS");
+      var file = $scope.findFileById(getActiveFileId());
+      if (file) {
+        $http.patch("/api/v1/note_files/"+file.id+"/save.json", file).then(
+        function(response){
+        console.log(response.data.message);
+        
+      },
+        function(error){
+        console.log(error.data.errors);
+      })
+      }
+      else {
+        console.log("File is null")
+      }
     };
+
+
+
+    $scope.addShow = function(newDatetime, newArtistName, newVenue, newCity, newRegion, newCountry) {
+      var newShow = {
+        datetime: newDatetime,
+        artsists: newArtistName,
+        venue: newVenue,
+        city: newCity,
+        region: newRegion,
+        country: newCountry
+      };
+      
+    }
 
     $scope.closeFile = function(){
       //var file =
       file.file_open = false;
       alert("AAA");
+      //need to send to db that file is closed
     };
 
-    $scope.closeAllFiles = function(){
+    $scope.findFileById = function(id){
       var i;
-      for(i=0; i<$scope.files.length; i++){
-        $scope.files[i].file_open = false;
-      }
+      for(i=0;i<$scope.files.length;i++){
+        if ($scope.files[i]){
+          return $scope.files[i];
+        }
+      };
     };
+
+    // $scope.closeAllFiles = function(){
+    //   var i;
+    //   for(i=0; i<$scope.files.length; i++){
+    //     $scope.files[i].file_open = false;
+    //   }
+    // };
 
     $scope.playFile = function(file){
       playFile(file);
