@@ -1,4 +1,4 @@
-var midi_loaded=false;
+var  midi_loaded=false;
 
 window.onload = function() {
   if(document.URL.indexOf("workspace") > -1){
