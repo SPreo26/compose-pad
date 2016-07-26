@@ -20,7 +20,8 @@
         <td ng-repeat="(division, divisionValue) in divisions"
           width="2%">
           <input type="checkbox"
-          ng-model="divisions[division]">
+          ng-model="divisions[division]" id="{{'note-'+pitch+'-'+division}}"
+          ng-click="onlyOnePitchPerStartIndex(file.matrix,pitch,division)">
         </td>
       </tr>
     </table>
