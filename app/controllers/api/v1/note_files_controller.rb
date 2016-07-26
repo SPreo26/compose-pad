@@ -94,15 +94,26 @@ class Api::V1::NoteFilesController < ApplicationController
         new_notes=params[:matrix]
         old_notes=LoadedNote.where( note_file_id: params[:id])
         destroy_deleted_notes(old_notes,new_notes)
-        create_new_notes(old_notes,new_notes,note_file)     
+        create_new_notes(old_notes,new_notes,note_file) 
+        render json: {message: "File saved."}, status: 200    
       else 
         render json: {message: "matrix of notes never received by server"}, status: 404
       end
 
-      render json: {message: "File saved."}, status: 200
     else
+      render json: {message: "Note File ID #{params[:id]} not found"}, status: 404
+    end
+  end
 
-    render json: {message: "Note File ID #{params[:id]} not found"}, status: 404
+  def close
+
+    note_file=NoteFile.find_by({id: params[:id], user_id: current_user.id})
+
+    if note_file
+      NoteFile.update(note_file.id, file_open:  false)
+      render json: {message: "File closed."}, status: 200   
+    else
+      render json: {message: "Note File ID #{params[:id]} not found"}, status: 404
     end
   end
 
@@ -145,24 +156,18 @@ class Api::V1::NoteFilesController < ApplicationController
 
   def destroy_deleted_notes(old_notes,new_notes)
 
-    # p "DEST"
-    # old_notes.each do |old_note|
+    old_notes.each do |old_note|
       
-    #   old_note_deleted=true
-    #   #will be set to false if note with same pitch and start index is found in data sent from view
-    #   new_notes.each do |new_note|
+      old_note_deleted = true
+      #will be set to false if note with same pitch and start index is found in data sent from view
+      old_pitch = old_note[:pitch]
+      old_pitch_start_index = old_note[:start_index]
 
-    #       if old_note[:pitch]==new_note[:pitch] && old_note[:start_index] == new_note[:start_index]
-    #         old_note_deleted=false
-    #         p "NO DELEEEETE"
-    #       end     
-    #   end
+      old_note_deleted = false if new_notes[old_pitch][old_pitch_start_index]
 
-    #   if old_note_deleted
-    #     old_note.destroy
-    #     p "DELEETED"
-    #   end
-    # end
+      old_note.destroy if old_note_deleted
+
+    end
 
   end
 
@@ -176,11 +181,12 @@ class Api::V1::NoteFilesController < ApplicationController
         next unless new_pitch_start_index_presence
         #if this pitch and start index combination doesn't contain a note in the new data, no note created - moved on
         
-        new_note_added=true
+        new_note_added = true
         #will be set to false if note with same pitch and start index is already found in data sent from view
         old_notes.each do |old_note|
-          if pitch==old_note[:pitch] && new_pitch_start_index == old_note[:start_index]
-            new_note_added=false
+          if pitch == old_note[:pitch] && new_pitch_start_index == old_note[:start_index]
+
+            new_note_added = false
           end   
         end
 

@@ -72,6 +72,20 @@
       return false;
     };
 
+    $scope.onlyOnePitchPerStartIndex = function(matrix,pitch,division){
+      // var noteBox = document.getElementById(event.target.id);
+      if (matrix[pitch][division]){
+        var another_pitch;
+        for (another_pitch in matrix){
+          if (another_pitch!=pitch && matrix[another_pitch][division]){
+            matrix[pitch][division]=false;
+            // noteBox.checked = false;
+            break;
+          }
+        }
+      }
+    }
+
     $scope.saveFile = function(){
       var file = $scope.findFileById(getActiveFileId());
       if (file) {
@@ -89,25 +103,21 @@
       }
     };
 
-
-
-    $scope.addShow = function(newDatetime, newArtistName, newVenue, newCity, newRegion, newCountry) {
-      var newShow = {
-        datetime: newDatetime,
-        artsists: newArtistName,
-        venue: newVenue,
-        city: newCity,
-        region: newRegion,
-        country: newCountry
-      };
-      
-    }
-
     $scope.closeFile = function(){
-      //var file =
-      file.file_open = false;
-      alert("AAA");
-      //need to send to db that file is closed
+      var file = $scope.findFileById(getActiveFileId());
+      if (file) {
+        file.file_open = false;
+        $http.patch("/api/v1/note_files/"+file.id+"/close.json", file).then(
+        function(response){
+        console.log(response.data.message);
+      },
+        function(error){
+        console.log(error.data.errors);
+      })
+      }
+      else {
+        console.log("File is null")
+      }
     };
 
     $scope.findFileById = function(id){
@@ -127,7 +137,7 @@
     // };
 
     $scope.playFile = function(file){
-      playFile(file);
+      playFile(file, $scope.allDivisions, $scope.workspaceData.octave_tones );
     }
 
     // $scope.adjustMaxHeightToWindowHeight = function(elem){

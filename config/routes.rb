@@ -35,6 +35,7 @@ Rails.application.routes.draw do
       patch '/note_files/:id', to: 'note_files#update'
       patch '/note_files/:id/rename/', to: 'note_files#rename'
       patch '/note_files/:id/save/', to: 'note_files#save'
+      patch '/note_files/:id/close/', to: 'note_files#close'
     end
   end
 
