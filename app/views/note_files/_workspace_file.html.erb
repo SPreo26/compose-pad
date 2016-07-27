@@ -8,20 +8,22 @@
       </td>
     </tr>
   </table>
-  <div class="matrix-table-container">
-    <script ng-if="false">
-      //ng-if false makes script  only run once for first iteration (before this script elem is removed), then not made for any additional iterations
-      matrix_div_created = true;
-      adjustMatrixMaxHeightToWindowHeight();
-    </script>
+  <div class="matrix-table-container" ng-init="adjustMatrixMaxHeightToWindowHeight()">
     <table class="matrix-table">
       <tr ng-repeat="(pitch, divisions) in file.matrix">
         <td width="2%"> {{pitch}} </td>
         <td ng-repeat="(division, divisionValue) in divisions"
-          width="2%">
-          <input type="checkbox"
+        width="2%"
+        ng-init="($last && $parent.$last)? drawD3Notes(file) : null"
+        ng-click="onlyOnePitchPerStartIndex(file.matrix,pitch,division)? newD3Note(file,pitch,division):null">
+          <div ng-if="divisions[division]"
+          id="{{'file'+file.id+'note'+pitch+'-'+division}}">
+          </div>
+
+         <!--   -->
+          <!-- <input type="checkbox"
           ng-model="divisions[division]" id="{{'note-'+pitch+'-'+division}}"
-          ng-click="onlyOnePitchPerStartIndex(file.matrix,pitch,division)">
+          ng-click="onlyOnePitchPerStartIndex(file.matrix,pitch,division)"> -->
         </td>
       </tr>
     </table>

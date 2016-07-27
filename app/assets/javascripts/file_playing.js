@@ -107,7 +107,6 @@ function extractNotesFromMatrixOrderedByStartIndex(matrix, divisions){
   return notesOrderedByStartIndex; 
 };
 
-
 function convertNoteToMidiNote(pitch, octaveTones){
   //need a new js function to figure out pitch.tone and pitch.octave; in the new js function, use use a single pitch like C#4 to find a number via .match(/\d+/)[0] then find index of this number and everything before that is pitch
   pitch=extractOctaveAndToneFromPitch(pitch);
