@@ -21,6 +21,7 @@
         $scope.loadNotesIntoMatrixModel();
 
         loadMidi();
+        $scope.d3Matrix={};
 
         },
         function(error){
@@ -29,14 +30,11 @@
       )
     };
 
-    // $scope.returnOpenFiles = function(files){
-    //   if (files.file_open){
-    //     return true
-    //   }
-    //   else {
-    //     return false
-    //   }
-    // }
+    $scope.adjustMatrixMaxHeightToWindowHeight =function() {
+      matrix_div_created = true;
+      adjustMatrixMaxHeightToWindowHeight();
+    }
+
     $scope.loadNotesIntoMatrixModel = function() {
       var files = $scope.files;
       var pitches = $scope.pitchesInWorkspace;
@@ -55,13 +53,13 @@
           var k;
           for (k=0;k<divisions.length;k++){
             var division = divisions[k];
-            file.matrix[pitch][division]=$scope.thereIsNoteAtDivisionAndPitch(file,pitch,division)
+            file.matrix[pitch][division]=$scope.thereIsOriginallyNoteAtDivisionAndPitch(file,pitch,division)
           }
         }        
       }
     };
 
-    $scope.thereIsNoteAtDivisionAndPitch = function(file,pitch,division){
+    $scope.thereIsOriginallyNoteAtDivisionAndPitch = function(file,pitch,division){
       var notes = file.notes;
       var i;
       for (i=0;i<notes.length;i++){
@@ -72,18 +70,47 @@
       return false;
     };
 
+    $scope.AAA = function(){
+       console.log("wow");
+    };
+
+    $scope.drawD3Notes = function(file){
+
+      for (var pitch in file.matrix){
+        for (var division in file.matrix[pitch]) {
+
+          if(file.matrix[pitch][division]) {
+
+            $scope.newD3Note(file,pitch,division);
+          }
+        }
+      }
+    };                               
+
+    $scope.newD3Note = function(file,pitch,division){
+      var id = 'file'+file.id+'note'+pitch+'-'+division;
+            var svg = d3.select("[id='"+id+"']").append("svg")
+              .attr("width", 5)
+              .attr("height", 5);
+            var rect = svg.append("rect");
+            rect.attr("width",5);
+            rect.attr("height",5);
+            rect.attr("fill","red");
+    }
+
+
     $scope.onlyOnePitchPerStartIndex = function(matrix,pitch,division){
       // var noteBox = document.getElementById(event.target.id);
       if (matrix[pitch][division]){
         var another_pitch;
         for (another_pitch in matrix){
           if (another_pitch!=pitch && matrix[another_pitch][division]){
-            matrix[pitch][division]=false;
-            // noteBox.checked = false;
+            return false;
             break;
           }
         }
       }
+      return true
     }
 
     $scope.saveFile = function(){
