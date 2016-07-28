@@ -15,12 +15,11 @@
         <td ng-repeat="(division, divisionValue) in divisions"
         width="2%"
         ng-init="($last && $parent.$last)? drawD3Notes(file) : null"
-        ng-click="onlyOnePitchPerStartIndex(file.matrix,pitch,division)? newD3Note(file,pitch,division):null">
-          <div ng-if="divisions[division]"
-          id="{{'file'+file.id+'note'+pitch+'-'+division}}">
+        ng-click="toggleD3Note(file,pitch,division)"
+        class="note-cell">
+          <div id="{{'file'+file.id+'note'+pitch+'-'+division}}"
+          class="note-svg-container-div">
           </div>
-
-         <!--   -->
           <!-- <input type="checkbox"
           ng-model="divisions[division]" id="{{'note-'+pitch+'-'+division}}"
           ng-click="onlyOnePitchPerStartIndex(file.matrix,pitch,division)"> -->

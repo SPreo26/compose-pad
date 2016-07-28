@@ -70,9 +70,9 @@
       return false;
     };
 
-    $scope.AAA = function(){
-       console.log("wow");
-    };
+    // $scope.AAA = function(){
+    //    console.log("wow");
+    // };
 
     $scope.drawD3Notes = function(file){
 
@@ -81,23 +81,41 @@
 
           if(file.matrix[pitch][division]) {
 
-            $scope.newD3Note(file,pitch,division);
+            $scope.drawD3Note(file,pitch,division);
           }
         }
       }
     };                               
 
-    $scope.newD3Note = function(file,pitch,division){
+    $scope.toggleD3Note = function(file,pitch,division){
+      if (file.matrix[pitch][division]){
+        file.matrix[pitch][division] = false;
+        $scope.eraseD3Note(file,pitch,division);
+      }
+      else if($scope.onlyOnePitchPerStartIndex(file.matrix,pitch,division)){
+        file.matrix[pitch][division] = true;
+        $scope.drawD3Note(file,pitch,division);
+      }
+    };
+
+    $scope.drawD3Note = function(file,pitch,division){
       var id = 'file'+file.id+'note'+pitch+'-'+division;
             var svg = d3.select("[id='"+id+"']").append("svg")
-              .attr("width", 5)
-              .attr("height", 5);
+              .attr("width", 24)
+              .attr("height", 12)
+              .attr("class","note-svg")
             var rect = svg.append("rect");
-            rect.attr("width",5);
-            rect.attr("height",5);
-            rect.attr("fill","red");
+            rect.attr("width",24)
+            .attr("height",12)
+            .attr("fill","royalblue")
+            .attr("rx","5px")
+            .attr("ry","5px");
     }
 
+    $scope.eraseD3Note = function(file,pitch,division){
+      var id = 'file'+file.id+'note'+pitch+'-'+division;
+      d3.select("[id='"+id+"']").selectAll("svg").remove();
+    }
 
     $scope.onlyOnePitchPerStartIndex = function(matrix,pitch,division){
       // var noteBox = document.getElementById(event.target.id);
