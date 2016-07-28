@@ -106,17 +106,20 @@
 
     $scope.drawD3Note = function(file,pitch,division,noteOK){
       var id = 'file'+file.id+'note'+pitch+'-'+division;
-      // var svgDivJs = document.getElementById(id);
-      // var cellWidth = $(svgDivJs).parent().outerWidth();
-      // var cellHeight = $(svgDivJs).parent().outerHeight();
+      var svgDivJs = document.getElementById(id);
+      // var cellWidth = svgDivJs.parentElement.parentElement.offsetWidth;
+      // var cellHeight = svgDivJs.parentElement.parentElement.offsetHeight;
       // console.log(cellHeight)
-      var noteWidth = 30;
+      // console.log(cellWidth)
+      var noteWidth = "100%";
       var noteHeight = 15;
 
       var svgDivD3 = d3.select("[id='"+id+"']");
       var svg = svgDivD3.append("svg")
         .attr("width", noteWidth)
         .attr("height", noteHeight)
+        .style("max-width","92%")
+        .style("max-height","92%")
         .attr("class","note-svg");
       var g = svg.append("g");
       
@@ -132,16 +135,13 @@
         .attr("fill",rectFillColor)
         .attr("rx","4px")
         .attr("ry","4px")
-        // .attr("stroke","#757575")
-        // .attr("stroke-width",2)
-        // .attr("stroke-opacity",0.7);
+
       var text = g.append("text")
         .text(pitch)
-        .attr("y",10)
         .attr("font-size","9.5px")
         .attr("fill","#373737")
-        .attr("text-anchor","middle")
-        .attr("x",noteWidth/2)
+        // .attr("text-anchor","middle")
+        .attr("x",2)
         .style("dominant-baseline","central")
         .attr("y",noteHeight/2);
       
