@@ -183,3 +183,7 @@ body {
    max-height: 60px;
    font-family: 'Open Sans', sans-serif;
 }
+
+div.actions {
+  margin-top:10px;
+}
