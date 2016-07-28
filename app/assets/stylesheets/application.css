@@ -15,6 +15,9 @@ body {
  margin-bottom:0px;
 }
 
+.left-navbar{
+  margin-right: 15px;
+}
 .navbar-margin-right{
   margin-right: 5px;
 }

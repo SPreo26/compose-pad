@@ -1,17 +1,22 @@
 <ng-form action="/note_files/{{file.id}}" id="note-file-form{{$index}}" method="patch">
   <table class="division-table">
-    <tr>
-      <td width="2%"></td>
-      <td ng-repeat="beat in allBeatCells track by $index" ng-style="{'width':'2%'}">
+    <tr class="division-marker-row">
+      <td width="2%" class="division-marker-cell"></td>
+      <td ng-repeat="beat in allBeatCells track by $index" 
+      ng-style="{'width':'2%'}"
+      class="division-marker-cell">
         {{beat}}
         <!-- allBeatCells is an array made such that label printed on beat only, otherwise an empty string is printed -->
       </td>
     </tr>
   </table>
-  <div class="matrix-table-container" ng-init="adjustMatrixMaxHeightToWindowHeight()">
+  <div class="matrix-table-container">
     <table class="matrix-table">
       <tr ng-repeat="(pitch, divisions) in file.matrix">
-        <td width="2%"> {{pitch}} </td>
+        <td width="2%"
+        class="pitch-marker-cell"> 
+          {{pitch}}
+        </td>
         <td ng-repeat="(division, divisionValue) in divisions"
         width="2%"
         ng-init="($last && $parent.$last)? drawD3Notes(file) : null"
