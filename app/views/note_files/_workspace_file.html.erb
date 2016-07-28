@@ -14,7 +14,8 @@
     <table class="matrix-table">
       <tr ng-repeat="(pitch, divisions) in file.matrix">
         <td width="2%"
-        class="pitch-marker-cell"> 
+        class="pitch-marker-cell"
+        ng-style="pitch.indexOf('#')>=0 && {'background-color':'black'} || {'background-color':'white'}"> 
           {{pitch}}
         </td>
         <td ng-repeat="(division, divisionValue) in divisions"
@@ -22,12 +23,14 @@
         ng-init="($last && $parent.$last)? drawD3Notes(file) : null"
         ng-click="toggleD3Note(file,pitch,division)"
         class="note-cell">
+        <div>
           <div id="{{'file'+file.id+'note'+pitch+'-'+division}}"
           class="note-svg-container-div">
           </div>
           <!-- <input type="checkbox"
           ng-model="divisions[division]" id="{{'note-'+pitch+'-'+division}}"
           ng-click="onlyOnePitchPerStartIndex(file.matrix,pitch,division)"> -->
+        </div>
         </td>
       </tr>
     </table>
