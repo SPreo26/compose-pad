@@ -14,8 +14,7 @@
     <table class="matrix-table">
       <tr ng-repeat="(pitch, divisions) in file.matrix">
         <td width="2%"
-        class="pitch-marker-cell"
-        ng-style="pitch.indexOf('#')>=0 && {'background-color':'black'} || {'background-color':'white'}"> 
+        ng-class="{'pitch-marker-top-cell':$first, 'pitch-marker-cell':true, 'pitch-marker-cell-sharp':pitch.indexOf('#')>=0, 'pitch-marker-cell-natural':pitch.indexOf('#')<0 }"> 
           {{pitch}}
         </td>
         <td ng-repeat="(division, divisionValue) in divisions"

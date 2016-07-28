@@ -29,6 +29,24 @@
   text-align: center;
 }
 
+.pitch-marker-cell{
+  border-bottom: 1px solid;
+}
+
+.pitch-marker-top-cell{
+  border-top: 1px solid;
+}
+
+.pitch-marker-cell-sharp{
+  background-color : black;
+  border-color: #828282;
+}
+
+.pitch-marker-cell-natural{
+  background-color : white;
+  border-color: #878787;
+}
+
 .matrix-table-container{
   overflow-y: scroll;
   margin-right: 2px;
