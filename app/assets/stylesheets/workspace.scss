@@ -2,8 +2,6 @@
   text-align:center;
 }
 .play-control-button{
-  /*position: fixed;
-  top: 540px;*/
   margin: 10px 5px;
 }
 
@@ -11,25 +9,40 @@
   display: inline-block;
 }
 
-/*.matrix-labels-container{
-}*/
 
 .division-table, .matrix-table {
   width: 100%;
 } 
 
+.division-marker-cell {
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+.division-marker-cell, .pitch-marker-cell {
+  color:#626262 !important;
+  text-align: center;
+}
+
 .matrix-table-container{
   overflow-y: scroll;
+  margin-right: 2px;
 }
 
 .note-cell{
   border: 1px solid #a2a2a2;
 }
 
+.note-svg-container-div{
+  text-align: center;
+  vertical-align: middle;
+}
+
 .note-svg{
   display: block;
-  margin-left: auto;
-  margin-right: auto
+  max-height: 95%;
+  max-width: 95%;
+  margin-left: 3px;
 }
 /*.tab-pane{
 }*/
