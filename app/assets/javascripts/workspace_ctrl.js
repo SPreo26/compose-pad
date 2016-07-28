@@ -141,7 +141,7 @@
         .attr("font-size","9.5px")
         .attr("fill","#373737")
         // .attr("text-anchor","middle")
-        .attr("x",2)
+        .attr("x",3)
         .style("dominant-baseline","central")
         .attr("y",noteHeight/2);
       
