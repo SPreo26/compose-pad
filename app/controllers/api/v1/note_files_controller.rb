@@ -185,7 +185,6 @@ class Api::V1::NoteFilesController < ApplicationController
         #will be set to false if note with same pitch and start index is already found in data sent from view
         old_notes.each do |old_note|
           if pitch == old_note[:pitch] && new_pitch_start_index == old_note[:start_index]
-
             new_note_added = false
           end   
         end

@@ -209,7 +209,7 @@
     $scope.findFileById = function(id){
       var i;
       for(i=0;i<$scope.files.length;i++){
-        if ($scope.files[i]){
+        if ($scope.files[i].id == id){
           return $scope.files[i];
         }
       };
