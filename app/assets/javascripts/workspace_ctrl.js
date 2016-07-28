@@ -192,10 +192,21 @@
     $scope.closeFile = function(){
       var file = $scope.findFileById(getActiveFileId());
       if (file) {
-        file.file_open = false;
         $http.patch("/api/v1/note_files/"+file.id+"/close.json", file).then(
         function(response){
         console.log(response.data.message);
+        file.file_open = false;
+        
+        var all_files_closed = true;
+        for (var i=0; i<$scope.files.length; i++){
+          if ($scope.files[i].file_open){
+            all_files_closed = false;
+          }
+        }
+
+        if (all_files_closed){
+          window.location.href = '/note_files/close_all'
+        }
       },
         function(error){
         console.log(error.data.errors);
