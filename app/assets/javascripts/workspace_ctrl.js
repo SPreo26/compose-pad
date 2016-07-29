@@ -177,7 +177,7 @@
       if (file) {
         $http.patch("/api/v1/note_files/"+file.id+"/save.json", file).then(
         function(response){
-        console.log(response.data.message);
+        alert(response.data.message);
         
       },
         function(error){

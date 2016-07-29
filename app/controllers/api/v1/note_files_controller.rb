@@ -95,7 +95,7 @@ class Api::V1::NoteFilesController < ApplicationController
         old_notes=LoadedNote.where( note_file_id: params[:id])
         destroy_deleted_notes(old_notes,new_notes)
         create_new_notes(old_notes,new_notes,note_file) 
-        render json: {message: "File saved."}, status: 200    
+        render json: {message: note_file.name + " saved!"}, status: 200    
       else 
         render json: {message: "matrix of notes never received by server"}, status: 404
       end
