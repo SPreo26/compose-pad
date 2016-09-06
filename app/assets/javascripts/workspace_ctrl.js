@@ -100,6 +100,9 @@
         else {
           var noteOK=false;
         }
+      var midiNote = convertNoteToMidiNote(pitch, $scope.workspaceData.octave_tones);
+      var delay = .500;
+      playNote(midiNote,delay);
       $scope.drawD3Note(file,pitch,division,noteOK);
       }
     };
