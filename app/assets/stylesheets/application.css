@@ -195,3 +195,13 @@ div.actions {
   font-style: italic;
   color: #9d9d9d;
 }
+
+.logged-out-buffer {
+  height:20px;
+}
+
+.logged-out-tutorial-link {
+  font-style: italic;
+  font-size: 22px;
+  margin-bottom: 10px;
+}

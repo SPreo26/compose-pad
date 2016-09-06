@@ -31,8 +31,6 @@ style="background-color:#222">
     <%end %>
   </div>
 
-<%= yield %>
-
  <!-- Navigation -->
   <% if @action_is_workspace %>
   <nav ng-controller = "workspaceCtrl" 
@@ -81,6 +79,13 @@ style="background-color:#222">
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container -->
   </nav>
+
+  <% unless current_user %>
+    <div class="logged-out-buffer"></div>
+    <a class="logged-out-tutorial-link" href="https://drive.google.com/open?id=0Bxvz4oBLx9gZYUU2WUNtUGhZLUE">Click Here for Demo Tutorial</a>
+  <% end %>
+
+  <%= yield %>
 
 <!-- Full Page Image Background Carousel Header -->
   <script>
